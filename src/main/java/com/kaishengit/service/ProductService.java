@@ -37,4 +37,13 @@ public interface ProductService {
      * @throws ServiceException
      */
     void secKill(Integer id) throws ServiceException;
+
+    /**
+     * 上传文件到七牛
+     *
+     * @param inputStream
+     * @return
+     * @throws RuntimeException
+     */
+    String uploadToQiNiu(InputStream inputStream) throws RuntimeException;
 }

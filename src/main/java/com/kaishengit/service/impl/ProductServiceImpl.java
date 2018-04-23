@@ -227,7 +227,8 @@ public class ProductServiceImpl implements ProductService {
      * @return
      * @throws RuntimeException
      */
-    private String uploadToQiNiu(InputStream inputStream) throws RuntimeException {
+    @Override
+    public String uploadToQiNiu(InputStream inputStream) throws RuntimeException {
         Configuration configuration = new Configuration(Zone.zone0());
         UploadManager uploadManager = new UploadManager(configuration);
 

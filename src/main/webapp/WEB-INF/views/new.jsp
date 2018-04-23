@@ -72,9 +72,22 @@
                 autoclose: true,
                 todayHighlight: true
             });
-            var editor = new Simditor({
-                textarea: $('#editer')
-                //optional options
+
+            toolbar = [ 'title', 'bold', 'italic', 'underline', 'strikethrough',
+                'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|',
+                'link', 'image', 'hr', '|', 'indent', 'outdent' ];
+            var editor = new Simditor( {
+                textarea : $('#editer'),
+                placeholder : '请输入商品详情...',
+                toolbar : toolbar,  //工具栏
+                defaultImage : 'simditor-2.0.1/images/image.png', //编辑器插入图片时使用的默认图片
+                upload : {
+                    url : '/img/upload', //文件上传的接口地址
+                    params: null, //键值对,指定文件上传接口的额外参数,上传的时候随文件一起提交
+                    fileKey: 'image', //服务器端获取文件数据的参数名
+                    connectionCount: 3,
+                    leaveConfirm: '正在上传文件'
+                }
             });
         });
     </script>

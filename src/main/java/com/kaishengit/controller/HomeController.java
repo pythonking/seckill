@@ -33,17 +33,19 @@ public class HomeController {
 
     /**
      * 抢购商品列表
+     *
      * @return
      */
     @GetMapping("/")
     public String home(Model model) {
         List<Product> productList = productService.findAll();
-        model.addAttribute("productList",productList);
+        model.addAttribute("productList", productList);
         return "home";
     }
 
     /**
      * 添加抢购商品
+     *
      * @return
      */
     @GetMapping("/product/new")
@@ -52,17 +54,17 @@ public class HomeController {
     }
 
     @PostMapping("/product/new")
-    public String newProduct(Product product, MultipartFile image,String sTime,String eTime) {
+    public String newProduct(Product product, MultipartFile image, String sTime, String eTime) {
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-        DateTime startDateTime = DateTime.parse(sTime,formatter);
-        DateTime endDateTime = DateTime.parse(eTime,formatter);
+        DateTime startDateTime = DateTime.parse(sTime, formatter);
+        DateTime endDateTime = DateTime.parse(eTime, formatter);
 
         product.setStartTime(startDateTime.toDate());
         product.setEndTime(endDateTime.toDate());
 
-        if(image.isEmpty()) {
-            productService.saveProduct(product,null);
+        if (image.isEmpty()) {
+            productService.saveProduct(product, null);
         } else {
             try {
                 productService.saveProduct(product, image.getInputStream());
@@ -77,15 +79,16 @@ public class HomeController {
      * 查看商品详情
      */
     @GetMapping("/product/{id:\\d+}")
-    public String productInfo(@PathVariable Integer id,Model model) {
+    public String productInfo(@PathVariable Integer id, Model model) {
         Product product = productService.findById(id);
-        model.addAttribute("product",product);
+        model.addAttribute("product", product);
         return "product";
     }
 
 
     /**
      * 秒杀商品
+     *
      * @param id
      * @return
      */
@@ -100,6 +103,21 @@ public class HomeController {
         }
     }
 
-
-
+    /**
+     * 上传图片
+     *
+     * @param image
+     * @return
+     */
+    @PostMapping("/img/upload")
+    @ResponseBody
+    public AjaxResult secKill(MultipartFile image) {
+        try {
+            productService.uploadToQiNiu(image.getInputStream());
+            return AjaxResult.success();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return AjaxResult.error(e.getMessage());
+        }
+    }
 }
