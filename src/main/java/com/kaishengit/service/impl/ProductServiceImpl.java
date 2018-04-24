@@ -8,6 +8,7 @@ import com.kaishengit.job.ProductInventoryJob;
 import com.kaishengit.mapper.ProductMapper;
 import com.kaishengit.service.ProductService;
 import com.kaishengit.service.exception.ServiceException;
+import com.kaishengit.util.redis.RedisUtil;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
@@ -25,8 +26,6 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,8 +44,6 @@ public class ProductServiceImpl implements ProductService {
     private String qiniuSK;
     @Value("${qiniu.buket}")
     private String qiniuBuket;
-    @Autowired
-    private JedisPool jedisPool;
     @Autowired
     private JmsTemplate jmsTemplate;
     @Autowired
@@ -67,10 +64,8 @@ public class ProductServiceImpl implements ProductService {
         product.setProductImage(key);
         productMapper.insertSelective(product);
         //在redis中添加商品库存量的集合
-        try (Jedis jedis = jedisPool.getResource()) {
-            for (int i = 0; i < product.getProductInventory(); i++) {
-                jedis.lpush("product:" + product.getId() + ":inventory", String.valueOf(i));
-            }
+        for (int i = 0; i < product.getProductInventory(); i++) {
+            RedisUtil.lpush("product:" + product.getId() + ":inventory", String.valueOf(i));
         }
         //添加秒杀结束的定时任务，用于秒杀结束时更新库存
         addSchedulerJob(product.getEndTime().getTime(), product.getId());
@@ -143,15 +138,13 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public Product findById(Integer id) {
-        Product product;
-        try (Jedis jedis = jedisPool.getResource()) {
-            String json = jedis.get("product:" + id);
-            if (json == null) {
-                product = productMapper.selectByPrimaryKey(id);
-                jedis.set("product:" + id, JSON.toJSONString(product));
-            } else {
-                product = JSON.parseObject(json, Product.class);
-            }
+        Product product = null;
+        String json = RedisUtil.getStringValue("product:" + id);
+        if (json == null) {
+            product = productMapper.selectByPrimaryKey(id);
+            RedisUtil.setString("product:" + id, JSON.toJSONString(product));
+        } else {
+            product = JSON.parseObject(json, Product.class);
         }
         return product;
     }
@@ -164,24 +157,22 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public void secKill(Integer id) throws ServiceException {
-        try (Jedis jedis = jedisPool.getResource()) {
-            Product product = JSON.parseObject(jedis.get("product:" + id), Product.class);
-            if (!product.isStart()) {
-                throw new RuntimeException("你来早了，还没开始");
-            }
-            String value = jedis.lpop("product:" + id + ":inventory");
+        Product product = JSON.parseObject(RedisUtil.getStringValue("product:" + id), Product.class);
+        if (!product.isStart()) {
+            throw new RuntimeException("你来早了，还没开始");
+        }
+        String value = RedisUtil.lpop("product:" + id + ":inventory");
 
-            if (value == null) {
-                logger.error("库存不足，秒杀失败");
-                throw new ServiceException("抢光了");
-            } else {
-                logger.info("秒杀商品成功");
+        if (value == null) {
+            logger.error("库存不足，秒杀失败");
+            throw new ServiceException("抢光了");
+        } else {
+            logger.info("秒杀商品成功");
 
-                //修改redis的缓存
+            //修改redis的缓存
 
-                product.setProductInventory(product.getProductInventory() - 1);
-                jedis.set("product:" + id, JSON.toJSONString(product));
-            }
+            product.setProductInventory(product.getProductInventory() - 1);
+            RedisUtil.setString("product:" + id, JSON.toJSONString(product));
         }
     }
 

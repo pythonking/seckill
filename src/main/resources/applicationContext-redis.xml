@@ -6,16 +6,20 @@
 
     <!--redis的连接池-->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxWaitMillis" value="5000"/>
-        <property name="maxTotal" value="10"/>
-        <property name="maxIdle" value="8"/>
-        <property name="minIdle" value="3"/>
+        <property name="maxTotal" value="${redis.max.active}"/>
+        <property name="maxIdle" value="${redis.max.idle}"/>
+        <property name="maxWaitMillis" value="${redis.max.wait}"/>
+        <property name="testOnBorrow" value="${redis.on.borrow}"/>
     </bean>
 
     <bean id="jedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy">
         <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
-        <constructor-arg name="host" value="127.0.0.1"/>
-        <constructor-arg name="port" value="6379"/>
+        <constructor-arg name="host" value="${redis.host}"/>
+        <constructor-arg name="port" value="${redis.port}"/>
     </bean>
 
+    <!--注入RedisUtil工具类-->
+    <bean class="com.kaishengit.util.redis.RedisUtil">
+        <property name="pool" ref="jedisPool"></property>
+    </bean>
 </beans>
