@@ -16,39 +16,42 @@
             border-bottom: 1px dashed #ccc;
             padding: 25px 0px;
         }
+
         .product_list:last-child {
             border-bottom: none;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">
-                    <i class="fa fa-shopping-basket"></i> ProductStore
-                </a>
-            </div>
-            <a href="/product/new" class="btn btn-success navbar-btn pull-right"><i class="fa fa-plus"></i> 添加商品</a>
-        </div>
-    </nav>
+<nav class="navbar navbar-default navbar-static-top">
     <div class="container">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <c:forEach items="${productList}" var="product">
-                    <div class="row product_list">
-                        <div class="col-md-2">
-                            <img src="http://retail.huataizhubao.com/${product.productImage}?imageView2/1/w/150/h/150" alt="">
-                        </div>
-                        <div class="col-md-10">
-                            <h3><a href="/product/${product.id}">${product.productName}</a> </h3>
-                            <h4 style="margin-top: 25px" class="text-danger">抢购价: ￥${product.productPrice}</h4>
-                            <h4 style="margin-top: 35px">开始时间：<fmt:formatDate value="${product.startTime}" pattern="YYYY-MM-dd HH:mm"/></h4>
-                        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+                <i class="fa fa-shopping-basket"></i> ProductStore
+            </a>
+        </div>
+        <a href="/product/new" class="btn btn-success navbar-btn pull-right"><i class="fa fa-plus"></i> 添加商品</a>
+    </div>
+</nav>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <c:forEach items="${productList}" var="product">
+                <div class="row product_list">
+                    <div class="col-md-2">
+                        <img src="http://retail.huataizhubao.com/${product.productImage}?imageView2/1/w/150/h/150"
+                             alt="">
                     </div>
-                </c:forEach>
-            </div>
+                    <div class="col-md-10">
+                        <h3><a href="/product/${product.id}">${product.productName}</a></h3>
+                        <h4 style="margin-top: 25px" class="text-danger">抢购价: ￥${product.productPrice}</h4>
+                        <h4 style="margin-top: 35px">开始时间：<fmt:formatDate value="${product.startTime}"
+                                                                          pattern="YYYY-MM-dd HH:mm"/></h4>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
+</div>
 </body>
 </html>

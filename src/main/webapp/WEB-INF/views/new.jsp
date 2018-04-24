@@ -8,88 +8,88 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
     <link rel="stylesheet" href="/static/js/datetimepicker/css/bootstrap-datetimepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/js/editer/styles/simditor.css" />
+    <link rel="stylesheet" type="text/css" href="/static/js/editer/styles/simditor.css"/>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <form method="post" enctype="multipart/form-data">
-            <legend>添加抢购商品</legend>
-            <div class="form-group">
-                <label>商品名称</label>
-                <input type="text" class="form-control" name="productName">
-            </div>
-            <div class="form-group">
-                <label>商品副标题</label>
-                <input type="text" class="form-control" name="productTitle">
-            </div>
-            <div class="form-group">
-                <label>商品秒杀价格</label>
-                <input type="text" class="form-control" name="productPrice">
-            </div>
-            <div class="form-group">
-                <label>商品市场价格</label>
-                <input type="text" class="form-control" name="productMarketPrice">
-            </div>
-            <div class="form-group">
-                <label>商品库存数量</label>
-                <input type="text" class="form-control" name="productInventory">
-            </div>
-            <div class="form-group">
-                <label>商品图片</label>
-                <input type="file" class="form-control" name="image">
-            </div>
-            <div class="form-group">
-                <label>开始时间</label>
-                <input type="text" class="form-control timePicker" name="sTime">
-            </div>
-            <div class="form-group">
-                <label>结束时间</label>
-                <input type="text" class="form-control timePicker" name="eTime">
-            </div>
-            <div class="form-group">
-                <label>商品详情</label>
-                <textarea name="productDesc" id="editer" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-success">保存</button>
-            </div>
-        </form>
-    </div>
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="/static/js/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-    <script src="/static/js/editer/scripts/module.js"></script>
-    <script src="/static/js/editer/scripts/hotkeys.js"></script>
-    <script src="/static/js/editer/scripts/uploader.js"></script>
-    <script src="/static/js/editer/scripts/simditor.js"></script>
-    <script>
-        $(function () {
-            var timepicker = $('.timePicker').datetimepicker({
-                format: "yyyy-mm-dd hh:ii",
-                language: "zh-CN",
-                autoclose: true,
-                todayHighlight: true
-            });
-
-            toolbar = [ 'title', 'bold', 'italic', 'underline', 'strikethrough',
-                'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|',
-                'link', 'image', 'hr', '|', 'indent', 'outdent' ];
-            var editor = new Simditor( {
-                textarea : $('#editer'),
-                placeholder : '请输入商品详情...',
-                toolbar : toolbar,  //工具栏
-                defaultImage : 'simditor-2.0.1/images/image.png', //编辑器插入图片时使用的默认图片
-                upload : {
-                    url : '/img/upload', //文件上传的接口地址
-                    params: null, //键值对,指定文件上传接口的额外参数,上传的时候随文件一起提交
-                    fileKey: 'image', //服务器端获取文件数据的参数名
-                    connectionCount: 3,
-                    leaveConfirm: '正在上传文件'
-                }
-            });
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        <legend>添加抢购商品</legend>
+        <div class="form-group">
+            <label>商品名称</label>
+            <input type="text" class="form-control" name="productName">
+        </div>
+        <div class="form-group">
+            <label>商品副标题</label>
+            <input type="text" class="form-control" name="productTitle">
+        </div>
+        <div class="form-group">
+            <label>商品秒杀价格</label>
+            <input type="text" class="form-control" name="productPrice">
+        </div>
+        <div class="form-group">
+            <label>商品市场价格</label>
+            <input type="text" class="form-control" name="productMarketPrice">
+        </div>
+        <div class="form-group">
+            <label>商品库存数量</label>
+            <input type="text" class="form-control" name="productInventory">
+        </div>
+        <div class="form-group">
+            <label>商品图片</label>
+            <input type="file" class="form-control" name="image">
+        </div>
+        <div class="form-group">
+            <label>开始时间</label>
+            <input type="text" class="form-control timePicker" name="sTime">
+        </div>
+        <div class="form-group">
+            <label>结束时间</label>
+            <input type="text" class="form-control timePicker" name="eTime">
+        </div>
+        <div class="form-group">
+            <label>商品详情</label>
+            <textarea name="productDesc" id="editer" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-lg btn-success">保存</button>
+        </div>
+    </form>
+</div>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/static/js/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/static/js/editer/scripts/module.js"></script>
+<script src="/static/js/editer/scripts/hotkeys.js"></script>
+<script src="/static/js/editer/scripts/uploader.js"></script>
+<script src="/static/js/editer/scripts/simditor.js"></script>
+<script>
+    $(function () {
+        var timepicker = $('.timePicker').datetimepicker({
+            format: "yyyy-mm-dd hh:ii",
+            language: "zh-CN",
+            autoclose: true,
+            todayHighlight: true
         });
-    </script>
+
+        toolbar = ['title', 'bold', 'italic', 'underline', 'strikethrough',
+            'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|',
+            'link', 'image', 'hr', '|', 'indent', 'outdent'];
+        var editor = new Simditor({
+            textarea: $('#editer'),
+            placeholder: '请输入商品详情...',
+            toolbar: toolbar,  //工具栏
+            defaultImage: 'simditor-2.0.1/images/image.png', //编辑器插入图片时使用的默认图片
+            upload: {
+                url: '/img/upload', //文件上传的接口地址
+                params: null, //键值对,指定文件上传接口的额外参数,上传的时候随文件一起提交
+                fileKey: 'image', //服务器端获取文件数据的参数名
+                connectionCount: 3,
+                leaveConfirm: '正在上传文件'
+            }
+        });
+    });
+</script>
 </body>
 </html>
