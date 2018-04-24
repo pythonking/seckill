@@ -170,8 +170,8 @@ public class ProductServiceImpl implements ProductService {
             logger.info("秒杀商品成功");
 
             //修改redis的缓存
-
-            product.setProductInventory(product.getProductInventory() - 1);
+            Long length = RedisUtil.llen("product:" + product.getId() + ":inventory");
+            product.setProductInventory(length.intValue() - 1);
             RedisUtil.setString("product:" + id, JSON.toJSONString(product));
         }
     }
