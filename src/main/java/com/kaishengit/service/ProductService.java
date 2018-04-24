@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * @author fankay
+ * @author king
  */
 public interface ProductService {
 

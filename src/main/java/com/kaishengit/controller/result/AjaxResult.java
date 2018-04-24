@@ -2,7 +2,7 @@ package com.kaishengit.controller.result;
 
 /**
  * Ajax请求的返回结果，一般在控制器中使用
- * @author fankay
+ * @author king
  */
 public class AjaxResult {
 
