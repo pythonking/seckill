@@ -181,43 +181,8 @@ public class ProductServiceImpl implements ProductService {
 
                 product.setProductInventory(product.getProductInventory() - 1);
                 jedis.set("product:" + id, JSON.toJSONString(product));
-
-                /*jmsTemplate.send("product_inventory_queue", new MessageCreator() {
-                    @Override
-                    public Message createMessage(Session session) throws JMSException {
-                        TextMessage textMessage = session.createTextMessage();
-                        textMessage.setText(id.toString());
-                        return textMessage;
-                    }
-                });*/
             }
         }
-
-
-       /* try(Jedis jedis = jedisPool.getResource()) {
-            Long num = jedis.decr("product:"+id+":num");
-            if(num < 0L) {
-                logger.error("库存不足，秒杀失败");
-                throw new ServiceException("抢光了");
-            } else {
-                logger.info("秒杀商品成功");
-            }
-        }
-*/
-
-        /*//1.查询商品
-        Product product = productMapper.selectByPrimaryKey(id);
-        //2.判断是否有库存
-        if(product.getProductInventory() > 0) {
-
-            product.setProductInventory(product.getProductInventory() - 1);
-            productMapper.updateByPrimaryKey(product);
-            logger.info("秒杀商品成功");
-
-        } else {
-            logger.error("库存不足，秒杀失败");
-            throw new ServiceException("抢光了");
-        }*/
     }
 
     /**
