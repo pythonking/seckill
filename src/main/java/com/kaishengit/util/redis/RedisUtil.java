@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * redis缓存的工具类
+ * redis工具类
+ *
+ * @author king
  */
 public class RedisUtil {
     private static Logger log = LoggerFactory.getLogger(RedisUtil.class);
@@ -40,13 +42,10 @@ public class RedisUtil {
             jedis.setex(key, seconds, value);
             return true;
         } catch (Exception e) {
-            log.error("放入字符串到redis缓存出现异常，key={},异常信息：{}", key, e);
+            log.error("方法 setStringValue 出现异常，key={}，value={}", key, value);
             return false;
         } finally {
-            // 使用完后，将连接放回连接池
-            if (null != jedis) {
-                jedis.close();
-            }
+            closeJedis(jedis);
         }
     }
 
@@ -62,13 +61,10 @@ public class RedisUtil {
             String value = jedis.get(key);
             return value;
         } catch (Exception e) {
-            log.error("从redis缓存取字符串值出现异常，key={}", key);
+            log.error("方法 lpush getStringValue，key={}", key);
             return null;
         } finally {
-            // 使用完后，将连接放回连接池
-            if (null != jedis) {
-                jedis.close();
-            }
+            closeJedis(jedis);
         }
     }
 
@@ -84,13 +80,10 @@ public class RedisUtil {
             jedis.hmset(key, hashMap);
             return true;
         } catch (Exception e) {
-            log.error("放入Map集合到redis缓存出现异常，key={}", key);
+            log.error("方法 setMapValue 出现异常，key={}", key);
             return false;
         } finally {
-            // 使用完后，将连接放回连接池
-            if (null != jedis) {
-                jedis.close();
-            }
+            closeJedis(jedis);
         }
     }
 
@@ -107,13 +100,10 @@ public class RedisUtil {
             List<String> value = jedis.hmget(key, fields);
             return value;
         } catch (Exception e) {
-            log.error("从redis缓存取字符串值出现异常，key={}", key);
+            log.error("方法 getMapValue 出现异常，key={}", key);
             return null;
         } finally {
-            // 使用完后，将连接放回连接池
-            if (null != jedis) {
-                jedis.close();
-            }
+            closeJedis(jedis);
         }
     }
 
@@ -131,13 +121,10 @@ public class RedisUtil {
             jedis.set(key.getBytes(), SerializationUtil.serialize(obj));
             return true;
         } catch (Exception e) {
-            log.error("放入对象到redis缓存出现异常，key={}", key);
+            log.error("方法 lpush 出现异常，key={}", key);
             return false;
         } finally {
-            // 使用完后，将连接放回连接池
-            if (null != jedis) {
-                jedis.close();
-            }
+            closeJedis(jedis);
         }
     }
 
@@ -158,10 +145,7 @@ public class RedisUtil {
             log.error("方法 setString 出现异常，key={}", key);
             return false;
         } finally {
-            // 使用完后，将连接放回连接池
-            if (null != jedis) {
-                jedis.close();
-            }
+            closeJedis(jedis);
         }
     }
 
@@ -185,48 +169,78 @@ public class RedisUtil {
                 return obj;
             }
         } catch (Exception e) {
-            log.error("从redis缓存取字符串值出现异常，key={}", key);
+            log.error("方法 lpush 出现异常，key={}，value={}", key);
             return null;
         } finally {
-            // 使用完后，将连接放回连接池
-            if (null != jedis) {
-                jedis.close();
-            }
+            closeJedis(jedis);
         }
     }
 
+    /**
+     * 集合中弹出
+     *
+     * @param key
+     * @return
+     */
     public static String lpop(String key) {
         Jedis jedis = pool.getResource();
         try {
             String value = jedis.lpop(key);
             return value;
         } catch (Exception e) {
-            log.error("从redis 移除字符串值出现异常，key={}", key);
+            log.error("方法 lpush 出现异常，key={}", key);
             return null;
         } finally {
-            // 使用完后，将连接放回连接池
-            if (null != jedis) {
-                jedis.close();
-            }
+            closeJedis(jedis);
         }
     }
 
+    /**
+     * 队列中左加入
+     *
+     * @param key
+     * @param value
+     * @return
+     */
     public static Long lpush(String key, String value) {
         Jedis jedis = pool.getResource();
         try {
             Long length = jedis.lpush(key, value);
             return length;
         } catch (Exception e) {
-            log.error("从redis 移除字符串值出现异常，key={}，value={}", key, value);
+            log.error("方法 lpush 出现异常，key={}，value={}", key, value);
             return null;
         } finally {
-            // 使用完后，将连接放回连接池
-            if (null != jedis) {
-                jedis.close();
-            }
+            closeJedis(jedis);
         }
     }
 
+    /**
+     * 队列中右加入
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public static Long rpush(String key, String value) {
+        Jedis jedis = pool.getResource();
+        try {
+            Long length = jedis.rpush(key, value);
+            return length;
+        } catch (Exception e) {
+            log.error("方法 rpush 出现异常，key={}，value={}", key, value);
+            return null;
+        } finally {
+            closeJedis(jedis);
+        }
+    }
+
+    /**
+     * 获取集合长度
+     *
+     * @param key
+     * @return
+     */
     public static Long llen(String key) {
         Jedis jedis = pool.getResource();
         try {
@@ -236,10 +250,14 @@ public class RedisUtil {
             log.error("方法 llen 出现异常，key={}，value={}", key);
             return null;
         } finally {
-            // 使用完后，将连接放回连接池
-            if (null != jedis) {
-                jedis.close();
-            }
+            closeJedis(jedis);
+        }
+    }
+
+    private static void closeJedis(Jedis jedis) {
+        // 使用完后，将连接放回连接池
+        if (null != jedis) {
+            jedis.close();
         }
     }
 }
