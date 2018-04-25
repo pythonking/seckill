@@ -159,10 +159,10 @@ public class ProductServiceImpl implements ProductService {
     public void secKill(Integer id) throws ServiceException {
         Product product = JSON.parseObject(RedisUtil.getStringValue("product:" + id), Product.class);
         if (!product.isStart()) {
-            throw new RuntimeException("你来早了，还没开始");
+            throw new ServiceException("你来早了，还没开始");
         }
-        if (!product.isEnd()) {
-            throw new RuntimeException("该商品秒杀活动已经结束");
+        if (product.isEnd()) {
+            throw new ServiceException("该商品秒杀活动已经结束");
         }
         String value = RedisUtil.lpop("product:" + id + ":inventory");
 
