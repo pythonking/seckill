@@ -1,6 +1,7 @@
 package com.kaishengit.controller;
 
 import com.kaishengit.controller.result.AjaxResult;
+import com.kaishengit.controller.result.SimditorResult;
 import com.kaishengit.entity.Product;
 import com.kaishengit.service.ProductService;
 import com.kaishengit.service.exception.ServiceException;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -111,13 +110,15 @@ public class HomeController {
      */
     @PostMapping("/img/upload")
     @ResponseBody
-    public AjaxResult secKill(MultipartFile image) {
-        try {
-            productService.uploadToQiNiu(image.getInputStream());
-            return AjaxResult.success();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return AjaxResult.error(e.getMessage());
+    public SimditorResult secKill(MultipartFile image) {
+        if (image != null && !image.isEmpty()) {
+            try {
+                String url = productService.uploadToQiNiu(image.getInputStream());
+                return SimditorResult.success(url);
+            } catch (IOException e) {
+                return SimditorResult.error();
+            }
         }
+        return SimditorResult.error();
     }
 }

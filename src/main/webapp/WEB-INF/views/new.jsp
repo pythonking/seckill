@@ -49,7 +49,7 @@
         </div>
         <div class="form-group">
             <label>商品详情</label>
-            <textarea name="productDesc" id="editer" class="form-control"></textarea>
+            <textarea name="productDesc" id="editor" class="form-control"></textarea>
         </div>
         <div class="form-group">
             <button class="btn btn-lg btn-success">保存</button>
@@ -77,10 +77,11 @@
             'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|',
             'link', 'image', 'hr', '|', 'indent', 'outdent'];
         var editor = new Simditor({
-            textarea: $('#editer'),
+            textarea: $('#editor'),
             placeholder: '请输入商品详情...',
             toolbar: toolbar,  //工具栏
             defaultImage: 'simditor-2.0.1/images/image.png', //编辑器插入图片时使用的默认图片
+            pasteImage: true,
             upload: {
                 url: '/img/upload', //文件上传的接口地址
                 params: null, //键值对,指定文件上传接口的额外参数,上传的时候随文件一起提交
