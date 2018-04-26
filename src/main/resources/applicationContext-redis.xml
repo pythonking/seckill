@@ -19,7 +19,7 @@
     </bean>
 
     <!--注入RedisUtil工具类-->
-    <bean class="com.kaishengit.util.redis.RedisUtil">
+    <bean class="com.leoIt.util.redis.RedisUtil">
         <property name="pool" ref="jedisPool"></property>
     </bean>
 </beans>

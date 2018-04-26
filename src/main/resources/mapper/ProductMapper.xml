@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kaishengit.mapper.ProductMapper">
-  <resultMap id="BaseResultMap" type="com.kaishengit.entity.Product">
+<mapper namespace="com.leoIt.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.leoIt.entity.Product">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="product_title" jdbcType="VARCHAR" property="productTitle" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
@@ -12,7 +12,7 @@
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kaishengit.entity.Product">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.leoIt.entity.Product">
     <result column="product_desc" jdbcType="LONGVARCHAR" property="productDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -80,7 +80,7 @@
   <sql id="Blob_Column_List">
     product_desc
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.kaishengit.entity.ProductExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.leoIt.entity.ProductExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -96,7 +96,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.kaishengit.entity.ProductExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.leoIt.entity.ProductExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -122,13 +122,13 @@
     delete from seckill_product
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.kaishengit.entity.ProductExample">
+  <delete id="deleteByExample" parameterType="com.leoIt.entity.ProductExample">
     delete from seckill_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kaishengit.entity.Product">
+  <insert id="insert" parameterType="com.leoIt.entity.Product">
     insert into seckill_product (id, product_title, product_name, 
       product_inventory, product_image, product_price, 
       product_market_price, start_time, end_time, 
@@ -138,7 +138,7 @@
       #{productMarketPrice,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
       #{productDesc,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.kaishengit.entity.Product" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.leoIt.entity.Product" useGeneratedKeys="true" keyProperty="id">
     insert into seckill_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -205,7 +205,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.kaishengit.entity.ProductExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.leoIt.entity.ProductExample" resultType="java.lang.Long">
     select count(*) from seckill_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -280,7 +280,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.kaishengit.entity.Product">
+  <update id="updateByPrimaryKeySelective" parameterType="com.leoIt.entity.Product">
     update seckill_product
     <set>
       <if test="productTitle != null">
@@ -313,7 +313,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kaishengit.entity.Product">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.leoIt.entity.Product">
     update seckill_product
     set product_title = #{productTitle,jdbcType=VARCHAR},
       product_name = #{productName,jdbcType=VARCHAR},
@@ -326,7 +326,7 @@
       product_desc = #{productDesc,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.kaishengit.entity.Product">
+  <update id="updateByPrimaryKey" parameterType="com.leoIt.entity.Product">
     update seckill_product
     set product_title = #{productTitle,jdbcType=VARCHAR},
       product_name = #{productName,jdbcType=VARCHAR},
