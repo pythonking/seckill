@@ -5,9 +5,6 @@ import com.leoIt.controller.result.SimditorResult;
 import com.leoIt.entity.Product;
 import com.leoIt.service.ProductService;
 import com.leoIt.service.exception.ServiceException;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,15 +50,7 @@ public class HomeController {
     }
 
     @PostMapping("/product/new")
-    public String newProduct(Product product, MultipartFile image, String sTime, String eTime) {
-
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-        DateTime startDateTime = DateTime.parse(sTime, formatter);
-        DateTime endDateTime = DateTime.parse(eTime, formatter);
-
-        product.setStartTime(startDateTime.toDate());
-        product.setEndTime(endDateTime.toDate());
-
+    public String newProduct(Product product, MultipartFile image) {
         if (image.isEmpty()) {
             productService.saveProduct(product, null);
         } else {

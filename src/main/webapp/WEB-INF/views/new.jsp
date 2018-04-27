@@ -41,11 +41,11 @@
         </div>
         <div class="form-group">
             <label>开始时间</label>
-            <input type="text" class="form-control timePicker" name="sTime">
+            <input type="text" class="form-control timePicker" name="startTime">
         </div>
         <div class="form-group">
             <label>结束时间</label>
-            <input type="text" class="form-control timePicker" name="eTime">
+            <input type="text" class="form-control timePicker" name="endTime">
         </div>
         <div class="form-group">
             <label>商品详情</label>

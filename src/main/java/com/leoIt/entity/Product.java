@@ -1,6 +1,7 @@
 package com.leoIt.entity;
 
 import org.joda.time.DateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -45,11 +46,13 @@ public class Product implements Serializable {
     /**
      * 开始时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date startTime;
 
     /**
      * 结束时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
 
     /**
