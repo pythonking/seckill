@@ -100,14 +100,15 @@ public class HomeController {
     @PostMapping("/img/upload")
     @ResponseBody
     public SimditorResult secKill(MultipartFile image) {
+        SimditorResult simditorResult = null;
         if (image != null && !image.isEmpty()) {
             try {
                 String url = productService.uploadToQiNiu(image.getInputStream());
-                return SimditorResult.success(url);
+                simditorResult = SimditorResult.success(url);
             } catch (IOException e) {
-                return SimditorResult.error();
+                simditorResult = SimditorResult.error();
             }
         }
-        return SimditorResult.error();
+        return simditorResult;
     }
 }
