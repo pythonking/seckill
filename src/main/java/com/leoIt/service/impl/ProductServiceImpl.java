@@ -1,7 +1,6 @@
 package com.leoIt.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
 import com.leoIt.entity.Product;
 import com.leoIt.entity.ProductExample;
 import com.leoIt.job.ProductInventoryJob;
@@ -193,7 +192,7 @@ public class ProductServiceImpl implements ProductService {
 
         try {
             Response response = uploadManager.put(IOUtils.toByteArray(inputStream), null, uploadToken);
-            DefaultPutRet defaultPutRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+            DefaultPutRet defaultPutRet = JSON.parseObject(response.bodyString(), DefaultPutRet.class);
             return defaultPutRet.key;
         } catch (IOException ex) {
             throw new RuntimeException("上传文件到七牛异常", ex);
