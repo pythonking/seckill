@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置调度器工厂-->
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="applicationContextSchedulerContextKey" value="springApplicationContext"/>
+        <!--配置数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--事务管理器-->
+        <property name="transactionManager" ref="transactionManager"/>
+        <!--quartz.properties文件的位置-->
+        <property name="configLocation" value="classpath:properties/quartz.properties"/>
+        <!--是否覆盖数据库中已有的任务-->
+        <property name="overwriteExistingJobs" value="true"/>
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger"/>
+                <ref bean="simpleTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 配置定时触发器 -->
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="cronJobDetail"/>
+        <!--每隔5s执行一次-->
+        <property name="cronExpression" value="*/5 * * * * ?"/>
+    </bean>
+
+    <!--配置简单触发器-->
+    <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="simpleJobDetail"/>
+        <!-- 延迟3s执行 -->
+        <property name="startDelay" value="3000"/>
+        <!-- 每隔10s执行一次 -->
+        <property name="repeatInterval" value="10000"/>
+    </bean>
+
+    <!--使用定时作业详情-->
+    <bean id="cronJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <!--配置简单作业的目标类-->
+        <property name="jobClass" value="com.leoIt.task.MyCronJob"/>
+        <!--配置耐久性，如果一个任务不是durable，那么当没有Trigger关联它的时候，它就会被自动删除-->
+        <property name="durability" value="true"/>
+    </bean>
+
+    <!--使用简单作业详情-->
+    <bean id="simpleJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!--配置简单作业的目标类-->
+        <property name="targetObject" ref="mySimpleJob"/>
+        <!--配置简单作业的目标方法-->
+        <property name="targetMethod" value="execute"/>
+        <!--false表示等上一个任务执行完后再开启新的任务-->
+        <property name="concurrent" value="false"/>
+    </bean>
+
+
+</beans>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <!-- <value>classpath*:properties/*.properties</value>-->
+                <value>classpath*:properties/*.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <import resource="classpath*:config/spring/applicationContext-controller.xml"/>
+    <import resource="classpath*:config/spring/applicationContext-dbcp.xml"/>
+    <import resource="classpath*:config/mq/applicationContext-mq.xml"/>
+    <import resource="classpath*:config/quartz/applicationContext-quartz.xml"/>
+    <import resource="classpath*:config/redis/applicationContext-redis.xml"/>
+
+
+</beans>
