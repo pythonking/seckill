@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: seckill-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      routes:
+        - id: address
+          uri: lb://seckill-user
+          predicates:
+            - Path=/address/**
+          filters:
+            - StripPrefix=0
+        - id: goods
+          uri: lb://seckill-product
+          predicates:
+            - Path=/goods/**
+          filters:
+            - StripPrefix=0
+        - id: shoppingcart
+          uri: lb://seckill-product
+          predicates:
+            - Path=/shoppingcart/**
+          filters:
+            - StripPrefix=0
+        - id: order
+          uri: lb://seckill-order
+          predicates:
+            - Path=/order/**
+          filters:
+            - StripPrefix=0
+        - id: home
+          uri: lb://seckill-product
+          predicates:
+            - Path=/home/**
+          filters:
+            - StripPrefix=0
+        - id: user
+          uri: lb://seckill-user
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=0
+        - id: admin
+          uri: lb://seckill-admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            - StripPrefix=0
+
+server:
+  port: 9002
+
+feign:
+  hystrix:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+logging:
+  file:
+    path: logs
+    name: gateway.log
+  level:
+    com.unifex: INFO
+
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} %M:%L - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} %M:%L - %msg%n"
+
