@@ -1,5 +1,6 @@
 package com.karsa.service;
 
+import com.karsa.dto.GoodsInfo;
 import com.karsa.entity.Goods;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.karsa.vo.GoodsVo;
@@ -44,4 +45,6 @@ public interface IGoodsService extends IService<Goods> {
      * @param goodsId
      */
     void reduceStock(long goodsId);
+
+    GoodsInfo getGoodsInfo(Long goodsId);
 }

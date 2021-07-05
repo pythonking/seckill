@@ -1,10 +1,12 @@
 package com.karsa.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.karsa.dto.GoodsInfo;
 import com.karsa.entity.Goods;
 import com.karsa.mapper.GoodsMapper;
 import com.karsa.service.IGoodsService;
 import com.karsa.vo.GoodsVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,5 +40,16 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Override
     public void reduceStock(long goodsId) {
         this.baseMapper.reduceStack(goodsId);
+    }
+
+    @Override
+    public GoodsInfo getGoodsInfo(Long goodsId) {
+        Goods goods = this.getById(goodsId);
+        GoodsInfo goodsInfo = null;
+        if (null != goods) {
+            goodsInfo = new GoodsInfo();
+            BeanUtils.copyProperties(goods, goodsInfo);
+        }
+        return goodsInfo;
     }
 }

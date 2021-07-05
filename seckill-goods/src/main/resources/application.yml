@@ -3,5 +3,5 @@ server:
 
 spring:
   application:
-    name: seckill-order
+    name: seckill-goods
 
