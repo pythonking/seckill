@@ -42,7 +42,7 @@ management:
 logging:
   file:
     path: logs
-    name: gateway.log
+    name: logs/gateway.log
   level:
     com.unifex: INFO
 

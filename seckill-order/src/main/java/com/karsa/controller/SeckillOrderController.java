@@ -22,6 +22,11 @@ public class SeckillOrderController {
     private ISeckillOrderService seckillOrderService;
 
     @GetMapping("/list")
+    public Object list(String orderId) {
+        return seckillOrderService.getInfo(orderId);
+    }
+
+    @GetMapping("/info")
     public Object getInfo(String orderId) {
         return seckillOrderService.getInfo(orderId);
     }
