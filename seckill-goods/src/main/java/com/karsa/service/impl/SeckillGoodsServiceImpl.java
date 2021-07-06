@@ -17,4 +17,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class SeckillGoodsServiceImpl extends ServiceImpl<SeckillGoodsMapper, SeckillGoods> implements ISeckillGoodsService {
 
+    @Override
+    public Boolean seckill(Long id) {
+        //秒杀操作分为三步
+        //1.创建秒杀订单并放到MQ
+        return null;
+    }
 }

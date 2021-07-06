@@ -1,11 +1,11 @@
 package com.karsa.service;
 
-import com.karsa.entity.SeckillGoods;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.karsa.entity.SeckillGoods;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author karsa
@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISeckillGoodsService extends IService<SeckillGoods> {
 
+    Boolean seckill(Long id);
 }
