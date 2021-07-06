@@ -7,22 +7,16 @@ spring:
         locator:
           enabled: false
       routes:
-        - id: address
+        - id: user
           uri: lb://seckill-user
           predicates:
-            - Path=/address/**
+            - Path=/user/**
           filters:
             - StripPrefix=0
         - id: goods
-          uri: lb://seckill-product
+          uri: lb://seckill-goods
           predicates:
             - Path=/goods/**
-          filters:
-            - StripPrefix=0
-        - id: shoppingcart
-          uri: lb://seckill-product
-          predicates:
-            - Path=/shoppingcart/**
           filters:
             - StripPrefix=0
         - id: order
@@ -31,27 +25,9 @@ spring:
             - Path=/order/**
           filters:
             - StripPrefix=0
-        - id: home
-          uri: lb://seckill-product
-          predicates:
-            - Path=/home/**
-          filters:
-            - StripPrefix=0
-        - id: user
-          uri: lb://seckill-user
-          predicates:
-            - Path=/user/**
-          filters:
-            - StripPrefix=0
-        - id: admin
-          uri: lb://seckill-admin
-          predicates:
-            - Path=/admin/**
-          filters:
-            - StripPrefix=0
 
 server:
-  port: 9002
+  port: 8081
 
 feign:
   hystrix:

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-07-05
  */
 @RestController
-@RequestMapping("/seckill-order")
+@RequestMapping("/order")
 public class SeckillOrderController {
     @Autowired
     private ISeckillOrderService seckillOrderService;
