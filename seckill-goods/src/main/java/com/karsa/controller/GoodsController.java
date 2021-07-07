@@ -38,7 +38,7 @@ public class GoodsController {
         goods.setGoodsImg("img2").setGoodsName("小米13").setGoodsPrice(new BigDecimal("12.5"));
         redisUtil.set("goods1", goods);
         Goods goods2 = redisUtil.get("goods1", Goods.class);
-        return "获取名称： " + redisUtil.get("goods1");
+        return "获取名称： " + goods2;
     }
 }
 
