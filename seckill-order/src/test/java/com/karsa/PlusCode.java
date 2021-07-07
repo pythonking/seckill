@@ -56,7 +56,7 @@ public class PlusCode {
         sc.setEntityLombokModel(true);
         sc.setRestControllerStyle(true);
         //5.设置映射表名
-        sc.setInclude("seckill_order");
+        sc.setInclude("order_info");
         sc.setLogicDeleteFieldName("delete_flag");//逻辑删除标志
         //6.自动填充配置
         TableFill createTime = new TableFill("create_time", FieldFill.INSERT);
