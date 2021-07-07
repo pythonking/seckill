@@ -3,13 +3,11 @@ package com.karsa.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karsa.dto.GoodsVo;
 import com.karsa.entity.OrderInfo;
-import com.karsa.entity.SeckillOrder;
 import com.karsa.mapper.OrderInfoMapper;
 import com.karsa.service.IOrderInfoService;
 import com.karsa.service.ISeckillOrderService;
 import com.karsa.utils.RedisUtil;
 import com.karsa.vo.GoodsKeyPrefix;
-import com.karsa.vo.OrderKeyPrefix;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +48,6 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     @Override
     public OrderInfo createOrder(Long userId, Long goodsId) {
         OrderInfo orderInfo = new OrderInfo();
-        SeckillOrder seckillOrder = new SeckillOrder();
         GoodsVo goods = (GoodsVo) redisUtil.get(GoodsKeyPrefix.seckillGoodsInf.getPrefix(), goodsId.toString());
 
         orderInfo.setCreateDate(new Date());
@@ -66,18 +63,6 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         // 将订单信息插入 order_info 表中
         long orderId = this.baseMapper.insert(orderInfo);
         log.debug("将订单信息插入 order_info 表中: 记录为" + orderId);
-
-        seckillOrder.setGoodsId(goods.getId());
-        seckillOrder.setOrderId(orderInfo.getId());
-        seckillOrder.setUserId(userId);
-
-        // 将秒杀订单插入 seckill_order 表中
-        seckillOrderService.save(seckillOrder);
-        log.debug("将秒杀订单插入 seckill_order 表中");
-
-        // 将秒杀订单概要信息存储于redis中
-        redisUtil.set(OrderKeyPrefix.SK_ORDER + ":" + userId + "_" + goods.getId(), seckillOrder);
-
         return orderInfo;
     }
 }

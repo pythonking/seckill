@@ -38,8 +38,8 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-    public void reduceStock(long goodsId) {
-        this.baseMapper.reduceStack(goodsId);
+    public int reduceStock(long goodsId) {
+        return this.baseMapper.reduceStack(goodsId);
     }
 
     @Override

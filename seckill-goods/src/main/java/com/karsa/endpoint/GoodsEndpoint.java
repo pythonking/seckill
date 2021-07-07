@@ -20,4 +20,10 @@ public class GoodsEndpoint {
         return goodsService.getGoodsInfo(goodsId);
     }
 
+
+    @GetMapping(value = "/reduceStock")
+    public int reduceStock(Long goodsId) {
+        return goodsService.reduceStock(goodsId);
+    }
+
 }

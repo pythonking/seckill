@@ -1,15 +1,15 @@
 package com.karsa.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.karsa.dto.GoodsInfo;
 import com.karsa.entity.Goods;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.karsa.vo.GoodsVo;
 
 import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author karsa
@@ -44,7 +44,7 @@ public interface IGoodsService extends IService<Goods> {
      *
      * @param goodsId
      */
-    void reduceStock(long goodsId);
+    int reduceStock(long goodsId);
 
     GoodsInfo getGoodsInfo(Long goodsId);
 }

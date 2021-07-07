@@ -1,11 +1,12 @@
 package com.karsa.service;
 
-import com.karsa.entity.SeckillOrder;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.karsa.entity.OrderInfo;
+import com.karsa.entity.SeckillOrder;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author karsa
@@ -14,4 +15,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ISeckillOrderService extends IService<SeckillOrder> {
 
     Object getInfo(String orderId);
+
+    /**
+     * 执行秒杀操作
+     *
+     * @param userId
+     * @param goodsId
+     * @return
+     */
+    OrderInfo seckill(long userId, long goodsId);
 }

@@ -16,4 +16,13 @@ public interface GoodsClient {
      */
     @GetMapping(value = "/endpoint/getGoodsInfo")
     GoodsInfo getGoodsInfo(@RequestParam("goodsId") Long goodsId);
+
+    /**
+     * 减库存
+     *
+     * @param goodsId
+     * @return
+     */
+    @GetMapping(value = "/endpoint/reduceStock")
+    int reduceStock(long goodsId);
 }

@@ -40,7 +40,6 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     /**
      * 减少 seckill_order 中的库存
-     * <p>
      * 增加库存判断 stock_count>0, 一次使得数据库不存在卖超问题
      *
      * @param goodsId
