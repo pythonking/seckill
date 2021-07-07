@@ -10,8 +10,7 @@ import com.karsa.service.ISeckillOrderService;
 import com.karsa.utils.RedisUtil;
 import com.karsa.vo.GoodsKeyPrefix;
 import com.karsa.vo.OrderKeyPrefix;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,9 +25,9 @@ import java.util.Date;
  * @author karsa
  * @since 2021-07-07
  */
+@Slf4j
 @Service
 public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> implements IOrderInfoService {
-    private static Logger logger = LoggerFactory.getLogger(OrderInfoServiceImpl.class);
 
     @Autowired
     private RedisUtil redisUtil;
@@ -66,7 +65,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
         // 将订单信息插入 order_info 表中
         long orderId = this.baseMapper.insert(orderInfo);
-        logger.debug("将订单信息插入 order_info 表中: 记录为" + orderId);
+        log.debug("将订单信息插入 order_info 表中: 记录为" + orderId);
 
         seckillOrder.setGoodsId(goods.getId());
         seckillOrder.setOrderId(orderInfo.getId());
@@ -74,7 +73,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
         // 将秒杀订单插入 seckill_order 表中
         seckillOrderService.save(seckillOrder);
-        logger.debug("将秒杀订单插入 seckill_order 表中");
+        log.debug("将秒杀订单插入 seckill_order 表中");
 
         // 将秒杀订单概要信息存储于redis中
         redisUtil.set(OrderKeyPrefix.SK_ORDER + ":" + userId + "_" + goods.getId(), seckillOrder);
