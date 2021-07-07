@@ -35,9 +35,9 @@ public class GoodsController {
     @GetMapping("/info")
     public Object getInfo() {
         Goods goods = new Goods();
-        goods.setGoodsImg("img").setGoodsName("小米12").setGoodsPrice(new BigDecimal("12.5"));
+        goods.setGoodsImg("img2").setGoodsName("小米13").setGoodsPrice(new BigDecimal("12.5"));
         redisUtil.set("goods1", goods);
-        Goods goods2 = (Goods) redisUtil.get("goods1");
+        Goods goods2 = redisUtil.get("goods1", Goods.class);
         return "获取名称： " + redisUtil.get("goods1");
     }
 }
