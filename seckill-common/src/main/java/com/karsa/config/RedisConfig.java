@@ -61,7 +61,7 @@ public class RedisConfig {
     }
 
 
-    @Bean(name="redisTemplate")
+    @Bean(name="redisTemplate1")
     public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(lettuceConnectionFactory);
