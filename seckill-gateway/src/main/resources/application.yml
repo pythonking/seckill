@@ -25,6 +25,12 @@ spring:
             - Path=/order/**
           filters:
             - StripPrefix=0
+        - id: order-info
+          uri: lb://seckill-order
+          predicates:
+            - Path=/order-info/**
+          filters:
+            - StripPrefix=0
 
 server:
   port: 8081
