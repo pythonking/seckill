@@ -1,4 +1,4 @@
-package com.karsa.vo;
+package com.karsa.vo.prefix;
 
 import java.io.Serializable;
 

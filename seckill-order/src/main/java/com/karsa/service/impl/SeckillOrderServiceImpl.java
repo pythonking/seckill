@@ -10,7 +10,7 @@ import com.karsa.mapper.SeckillOrderMapper;
 import com.karsa.service.IOrderInfoService;
 import com.karsa.service.ISeckillOrderService;
 import com.karsa.utils.RedisUtil;
-import com.karsa.vo.OrderKeyPrefix;
+import com.karsa.vo.prefix.OrderKeyPrefix;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

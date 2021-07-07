@@ -7,7 +7,7 @@ import com.karsa.mapper.OrderInfoMapper;
 import com.karsa.service.IOrderInfoService;
 import com.karsa.service.ISeckillOrderService;
 import com.karsa.utils.RedisUtil;
-import com.karsa.vo.GoodsKeyPrefix;
+import com.karsa.vo.prefix.GoodsKeyPrefix;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

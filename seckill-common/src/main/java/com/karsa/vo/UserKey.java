@@ -1,11 +1,13 @@
 package com.karsa.vo;
 
+import com.karsa.vo.prefix.BaseKeyPrefix;
+
 import java.io.Serializable;
 
 /**
  * redis中，用于管理用户表的key
  */
-public class UserKey extends BaseKeyPrefix  implements Serializable {
+public class UserKey extends BaseKeyPrefix implements Serializable {
 
     public UserKey(String prefix) {
         super(prefix);
