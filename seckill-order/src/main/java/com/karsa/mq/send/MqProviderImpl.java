@@ -1,7 +1,7 @@
 package com.karsa.mq.send;
 
 
-import com.karsa.mq.MQConfig;
+import com.karsa.mq.receive.MQConfig;
 import com.karsa.vo.mq.SkMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

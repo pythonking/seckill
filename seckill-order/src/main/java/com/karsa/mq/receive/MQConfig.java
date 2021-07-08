@@ -1,4 +1,4 @@
-package com.karsa.mq;
+package com.karsa.mq.receive;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

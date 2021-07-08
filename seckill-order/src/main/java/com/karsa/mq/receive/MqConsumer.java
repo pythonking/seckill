@@ -1,4 +1,4 @@
-package com.karsa.mq;
+package com.karsa.mq.receive;
 
 import com.karsa.entity.SeckillOrder;
 import com.karsa.service.ISeckillOrderService;
