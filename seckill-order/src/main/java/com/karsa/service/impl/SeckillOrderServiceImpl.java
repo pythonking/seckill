@@ -1,5 +1,6 @@
 package com.karsa.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karsa.dto.GoodsInfo;
 import com.karsa.dto.OrderDTO;
@@ -62,6 +63,22 @@ public class SeckillOrderServiceImpl extends ServiceImpl<SeckillOrderMapper, Sec
         this.createSeckillOrder(order);
         log.info("订单生成成功,用户ID {},商品ID {}", userId, goodsId);
         return order;
+    }
+
+    @Override
+    public long getSeckillResult(Long userId, long goodsId) {
+        SeckillOrder order = this.getSeckillOrderByUserIdAndGoodsId(userId, goodsId);
+        if (order != null) {//秒杀成功
+            return order.getOrderId();
+        }
+        return -1;
+    }
+
+    @Override
+    public SeckillOrder getSeckillOrderByUserIdAndGoodsId(Long userId, long goodsId) {
+        LambdaQueryWrapper<SeckillOrder> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(SeckillOrder::getUserId, userId).ne(SeckillOrder::getGoodsId, goodsId);
+        return this.getById(wrapper);
     }
 
     /**

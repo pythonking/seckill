@@ -24,4 +24,22 @@ public interface ISeckillOrderService extends IService<SeckillOrder> {
      * @return
      */
     OrderInfo seckill(long userId, long goodsId);
+
+    /**
+     * 获取秒杀结果
+     *
+     * @param userId
+     * @param goodsId
+     * @return
+     */
+    long getSeckillResult(Long userId, long goodsId);
+
+    /**
+     * 获取秒杀结果对象
+     *
+     * @param userId
+     * @param goodsId
+     * @return
+     */
+    SeckillOrder getSeckillOrderByUserIdAndGoodsId(Long userId, long goodsId);
 }
