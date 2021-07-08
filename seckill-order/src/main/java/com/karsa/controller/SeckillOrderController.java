@@ -30,5 +30,11 @@ public class SeckillOrderController {
     public Object getInfo(String orderId) {
         return seckillOrderService.getInfo(orderId);
     }
+
+    @GetMapping("/seckill/result")
+    public Object getResult(Long orderId) {
+        Long userId = null;
+        return seckillOrderService.getSeckillResult(userId, orderId);
+    }
 }
 
