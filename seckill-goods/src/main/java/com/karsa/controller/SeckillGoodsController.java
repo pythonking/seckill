@@ -22,13 +22,13 @@ public class SeckillGoodsController {
     @Autowired
     private ISeckillGoodsService seckillGoodsService;
 
-    @PostMapping("/activate")
+    @PostMapping("/activate/all")
     public Object activateAll() {
         seckillGoodsService.activateAll();
         return Results.success(true);
     }
 
-    @PostMapping("/activate")
+    @PostMapping("/activate/one")
     public Object activateOne(Long id) {
         seckillGoodsService.activateOne(id);
         return Results.success(true);
