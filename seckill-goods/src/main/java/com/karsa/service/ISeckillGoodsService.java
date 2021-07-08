@@ -13,9 +13,12 @@ import com.karsa.entity.SeckillGoods;
  */
 public interface ISeckillGoodsService extends IService<SeckillGoods> {
     /**
-     * 激活秒杀商品
+     * 激活秒杀商品(所有)
      */
     void activateAll();
 
+    /**
+     * 激活秒杀商品(单个)
+     */
     void activateOne(Long id);
 }
