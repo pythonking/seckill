@@ -67,7 +67,7 @@ public class SeckillOrderServiceImpl extends ServiceImpl<SeckillOrderMapper, Sec
 
     @Override
     public long getSeckillResult(Long userId, long goodsId) {
-        SeckillOrder order = this.getSeckillOrderByUserIdAndGoodsId(userId, goodsId);
+        SeckillOrder order = this.getByUserIdAndGoodsId(userId, goodsId);
         if (order != null) {//秒杀成功
             return order.getOrderId();
         }
@@ -75,7 +75,7 @@ public class SeckillOrderServiceImpl extends ServiceImpl<SeckillOrderMapper, Sec
     }
 
     @Override
-    public SeckillOrder getSeckillOrderByUserIdAndGoodsId(Long userId, long goodsId) {
+    public SeckillOrder getByUserIdAndGoodsId(Long userId, long goodsId) {
         LambdaQueryWrapper<SeckillOrder> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(SeckillOrder::getUserId, userId).ne(SeckillOrder::getGoodsId, goodsId);
         return this.getById(wrapper);

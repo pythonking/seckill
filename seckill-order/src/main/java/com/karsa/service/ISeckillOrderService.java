@@ -41,5 +41,5 @@ public interface ISeckillOrderService extends IService<SeckillOrder> {
      * @param goodsId
      * @return
      */
-    SeckillOrder getSeckillOrderByUserIdAndGoodsId(Long userId, long goodsId);
+    SeckillOrder getByUserIdAndGoodsId(Long userId, long goodsId);
 }
