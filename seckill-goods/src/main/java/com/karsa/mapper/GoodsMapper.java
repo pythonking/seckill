@@ -1,8 +1,8 @@
 package com.karsa.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.karsa.dto.GoodsVo;
 import com.karsa.entity.Goods;
-import com.karsa.vo.GoodsVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

@@ -2,8 +2,8 @@ package com.karsa.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.karsa.dto.GoodsInfo;
+import com.karsa.dto.GoodsVo;
 import com.karsa.entity.Goods;
-import com.karsa.vo.GoodsVo;
 
 import java.util.List;
 

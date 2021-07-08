@@ -2,10 +2,10 @@ package com.karsa.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karsa.dto.GoodsInfo;
+import com.karsa.dto.GoodsVo;
 import com.karsa.entity.Goods;
 import com.karsa.mapper.GoodsMapper;
 import com.karsa.service.IGoodsService;
-import com.karsa.vo.GoodsVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
