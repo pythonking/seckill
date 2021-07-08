@@ -2,8 +2,9 @@ package com.karsa.controller;
 
 
 import com.karsa.service.ISeckillGoodsService;
+import com.karsa.vo.result.Results;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,11 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/seckill-goods")
 public class SeckillGoodsController {
     @Autowired
-    private ISeckillGoodsService seckillService;
+    private ISeckillGoodsService seckillGoodsService;
 
-    @GetMapping("/seckill")
-    public Object seckill(Long id) {
-        return seckillService.seckill(id);
+    @PostMapping("/activate")
+    public Object activateAll() {
+        seckillGoodsService.activateAll();
+        return Results.success(true);
+    }
+
+    @PostMapping("/activate")
+    public Object activateOne(Long id) {
+        seckillGoodsService.activateOne(id);
+        return Results.success(true);
     }
 }
 

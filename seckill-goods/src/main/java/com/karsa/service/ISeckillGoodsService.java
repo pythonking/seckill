@@ -12,6 +12,10 @@ import com.karsa.entity.SeckillGoods;
  * @since 2021-07-04
  */
 public interface ISeckillGoodsService extends IService<SeckillGoods> {
+    /**
+     * 激活秒杀商品
+     */
+    void activateAll();
 
-    Boolean seckill(Long id);
+    void activateOne(Long id);
 }

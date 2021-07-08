@@ -27,10 +27,6 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         return this.baseMapper.listGoodsVo();
     }
 
-    @Override
-    public GoodsVo getGoodsVoByGoodsId(long goodsId) {
-        return this.baseMapper.getGoodsVoByGoodsId(goodsId);
-    }
 
     @Override
     public GoodsVo getGoodsVoByGoodsId(Long goodsId) {

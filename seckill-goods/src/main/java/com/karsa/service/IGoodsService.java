@@ -29,14 +29,6 @@ public interface IGoodsService extends IService<Goods> {
      * @param goodsId
      * @return
      */
-    GoodsVo getGoodsVoByGoodsId(long goodsId);
-
-    /**
-     * 通过商品的id查出商品的所有信息（包含该商品的秒杀信息）
-     *
-     * @param goodsId
-     * @return
-     */
     GoodsVo getGoodsVoByGoodsId(Long goodsId);
 
     /**
