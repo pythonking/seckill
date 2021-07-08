@@ -40,10 +40,10 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     /**
      * 减少 seckill_order 中的库存
-     * 增加库存判断 stock_count>0, 一次使得数据库不存在卖超问题
+     * 增加库存判断 stock_count>0, 一次使得数据库不存在卖超问题,但是考虑到数据一致问题，还是要加上乐观锁判断
      *
      * @param goodsId
      */
-    @Update("UPDATE seckill_goods SET stock_count = stock_count-1 WHERE goods_id=#{goodsId}")
+    @Update("UPDATE seckill_goods SET stock_count = stock_count-1 WHERE goods_id=#{goodsId} and stock_count > 0")
     int reduceStack(@Param("goodsId") Long goodsId);
 }
