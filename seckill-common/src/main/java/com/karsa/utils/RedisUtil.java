@@ -19,11 +19,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtil {
 
-    @Resource(name = "redisTemplate1")
+    @Resource(name = "redisTemplate")
     private RedisTemplate<String, Object> redisTemplate;
-
-    @Resource(name = "redisTemplate2")
-    private RedisTemplate<String, Object> redisTemplate2;
 
 
     //=============================common============================
@@ -181,25 +178,6 @@ public class RedisUtil {
 
 
     /**
-     * 普通缓存放入(带前缀)
-     *
-     * @param prefix 前缀
-     * @param key    键
-     * @param value  值
-     * @return true成功 false失败
-     */
-    public boolean set2(String prefix, String key, Object value) {
-        try {
-            redisTemplate2.opsForValue().set(prefix + key, value);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
-
-    /**
      * 普通缓存放入并设置时间
      *
      * @param key   键
@@ -258,33 +236,6 @@ public class RedisUtil {
         return redisTemplate.opsForValue().increment(key, delta);
     }
 
-    /**
-     * 递减
-     *
-     * @param key   键
-     * @param delta 要减少几(小于0)
-     * @return
-     */
-    public long decr(String key, long delta) {
-        if (delta < 0) {
-            throw new RuntimeException("递减因子必须大于0");
-        }
-        return redisTemplate2.opsForValue().increment(key, -delta);
-    }
-
-    /**
-     * 递减
-     *
-     * @param key   键
-     * @param delta 要减少几(小于0)
-     * @return
-     */
-    public long decr(String prefix, String key, long delta) {
-        if (delta < 0) {
-            throw new RuntimeException("递减因子必须大于0");
-        }
-        return redisTemplate2.opsForValue().decrement(prefix + key, delta);
-    }
 
     //================================Map=================================
 
