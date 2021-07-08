@@ -33,10 +33,11 @@ public class GoodsController {
     }
 
     @GetMapping("/info")
-    public Object getInfo() {
+    public Object getInfo(String key) {
         Goods goods = new Goods();
         goods.setGoodsImg("img2").setGoodsName("小米14").setGoodsPrice(new BigDecimal("12.53"));
         redisUtil.set("goods14", goods);
+        redisUtil.set(key, key);
         Goods goods2 = redisUtil.get("goods14", Goods.class);
         return "获取名称： " + goods2;
     }
