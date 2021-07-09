@@ -36,6 +36,15 @@ public class Results<T> implements Serializable {
         this.data = data;
     }
 
+    /**
+     * 定义为private是为了在防止在controller中直接new
+     */
+    private Results() {
+        this.code = 0;
+        this.msg = "success";
+        this.data = null;
+    }
+
     private Results(CodeMsg codeMsg) {
         if (codeMsg == null)
             return;
@@ -50,6 +59,15 @@ public class Results<T> implements Serializable {
      */
     public int getCode() {
         return code;
+    }
+
+    /**
+     * 业务处理成功返回结果，直接返回业务数据
+     *
+     * @return
+     */
+    public static Results success() {
+        return new Results();
     }
 
     /**
