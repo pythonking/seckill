@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: seckill-goods
+  datasource:
+    druid:
+      max-active: 20
+      min-idle: 5
+      test-while-idle: true
   redis:
     host: 127.0.0.1
     port: 6379
