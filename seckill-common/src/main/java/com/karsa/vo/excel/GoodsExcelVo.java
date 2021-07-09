@@ -3,6 +3,7 @@ package com.karsa.vo.excel;
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+@NoArgsConstructor
 public class GoodsExcelVo implements Serializable {
     /**
      * 商品ID

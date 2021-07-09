@@ -48,7 +48,7 @@ public class GoodsEndpoint {
      * @return
      */
     @PostMapping(value = "/batchInfoInsert")
-    public Boolean batchInfoInsert(@RequestParam("infoList") List<GoodsInfo> infoList) {
+    public Boolean batchInfoInsert(@RequestBody List<GoodsInfo> infoList) {
         return goodsService.batchInfoInsert(infoList);
     }
 

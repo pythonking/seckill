@@ -20,7 +20,6 @@ import java.math.BigDecimal;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @NoArgsConstructor
 public class GoodsInfo implements Serializable {
 
