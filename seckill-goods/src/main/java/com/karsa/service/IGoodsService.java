@@ -46,4 +46,12 @@ public interface IGoodsService extends IService<Goods> {
      * @return
      */
     List<GoodsInfo> listAllInfo();
+
+    /**
+     * 批量插入
+     *
+     * @param infoList
+     * @return
+     */
+    Boolean batchInfoInsert(List<GoodsInfo> infoList);
 }

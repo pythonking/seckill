@@ -18,4 +18,11 @@ public interface GoodsClient {
      */
     @GetMapping(value = "/endpoint/listAllInfo")
     List<GoodsInfo> listAllInfo();
+
+    /**
+     * 批量插入
+     *
+     * @param infoList
+     */
+    Boolean batchInfoInsert(List<GoodsInfo> infoList);
 }

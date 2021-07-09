@@ -53,15 +53,28 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 
     @Override
     public List<GoodsInfo> listAllInfo() {
-        List<GoodsInfo> infoList = Lists.newArrayList();
+        List<GoodsInfo> infoList = Lists.emptyList();
         List<Goods> goodsList = this.list();
-        if (!CollectionUtils.isEmpty(goodsList)) {
-            for (Goods goods : goodsList) {
-                GoodsInfo goodsInfo = new GoodsInfo();
-                BeanUtils.copyProperties(goods, goodsInfo);
-                infoList.add(goodsInfo);
-            }
+        if (CollectionUtils.isEmpty(goodsList)) {
+            return infoList;
+        }
+        infoList = Lists.newArrayList();
+        for (Goods goods : goodsList) {
+            GoodsInfo goodsInfo = new GoodsInfo();
+            BeanUtils.copyProperties(goods, goodsInfo);
+            infoList.add(goodsInfo);
         }
         return infoList;
+    }
+
+    @Override
+    public Boolean batchInfoInsert(List<GoodsInfo> infoList) {
+        List<Goods> goodsList = Lists.newArrayList();
+        for (GoodsInfo goodsInfo : infoList) {
+            Goods goods = new Goods();
+            BeanUtils.copyProperties(goodsInfo, goods);
+            goodsList.add(goods);
+        }
+        return this.saveBatch(goodsList);
     }
 }

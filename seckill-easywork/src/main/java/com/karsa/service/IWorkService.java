@@ -1,12 +1,15 @@
 package com.karsa.service;
 
-import com.karsa.vo.excel.GoodsExcelVo;
-
-import java.io.IOException;
-import java.util.List;
+import java.io.FileNotFoundException;
 
 public interface IWorkService {
-    List<GoodsExcelVo> listGoodsExcel();
 
-    void downGoods() throws IOException;
+    void downGoods() throws FileNotFoundException;
+
+    /**
+     * 导入excel
+     *
+     * @throws FileNotFoundException
+     */
+    Boolean readExcel() throws FileNotFoundException;
 }

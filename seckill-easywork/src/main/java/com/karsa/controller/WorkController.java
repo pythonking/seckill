@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 
 /**
  * 工具类
@@ -21,9 +21,15 @@ public class WorkController {
     private IWorkService workService;
 
     @GetMapping("/goods/down")
-    public Object downGoods() throws IOException {
+    public Object downGoods() throws FileNotFoundException {
         workService.downGoods();
         return Results.success();
+    }
+
+    @GetMapping("/goods/read")
+    public Object readGoods() throws FileNotFoundException {
+        Boolean flag = workService.readExcel();
+        return Results.success(flag);
     }
 
 }
