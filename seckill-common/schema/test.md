@@ -11,3 +11,4 @@ http://127.0.0.1:8084/order-info/mq/send?orderId=998866
 
 http://127.0.0.1:8085/work/goods/list
 http://127.0.0.1:8085/work/goods/down
+http://127.0.0.1:8085/work/goods/read

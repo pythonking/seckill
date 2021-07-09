@@ -24,5 +24,6 @@ public interface GoodsClient {
      *
      * @param infoList
      */
+    @GetMapping(value = "/endpoint/batchInfoInsert")
     Boolean batchInfoInsert(List<GoodsInfo> infoList);
 }
