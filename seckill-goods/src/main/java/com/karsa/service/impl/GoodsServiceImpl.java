@@ -6,8 +6,10 @@ import com.karsa.dto.GoodsVo;
 import com.karsa.entity.Goods;
 import com.karsa.mapper.GoodsMapper;
 import com.karsa.service.IGoodsService;
+import org.assertj.core.util.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -47,5 +49,19 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
             BeanUtils.copyProperties(goods, goodsInfo);
         }
         return goodsInfo;
+    }
+
+    @Override
+    public List<GoodsInfo> listAllInfo() {
+        List<GoodsInfo> infoList = Lists.newArrayList();
+        List<Goods> goodsList = this.list();
+        if (!CollectionUtils.isEmpty(goodsList)) {
+            for (Goods goods : goodsList) {
+                GoodsInfo goodsInfo = new GoodsInfo();
+                BeanUtils.copyProperties(goods, goodsInfo);
+                infoList.add(goodsInfo);
+            }
+        }
+        return infoList;
     }
 }

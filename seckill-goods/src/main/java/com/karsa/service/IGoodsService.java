@@ -39,4 +39,11 @@ public interface IGoodsService extends IService<Goods> {
     int reduceStock(long goodsId);
 
     GoodsInfo getGoodsInfo(Long goodsId);
+
+    /**
+     * 获取所有商品
+     *
+     * @return
+     */
+    List<GoodsInfo> listAllInfo();
 }
