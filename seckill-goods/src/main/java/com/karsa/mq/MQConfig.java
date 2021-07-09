@@ -15,10 +15,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MQConfig {
 
-    public static final String HELLO_MQ="helloMQ";
+    public static final String HELLO_SK="helloSK";
 
     @Bean
     public Queue queue(){
-        return new Queue(HELLO_MQ);
+        return new Queue(HELLO_SK);
     }
 }

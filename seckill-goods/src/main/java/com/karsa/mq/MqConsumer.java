@@ -1,5 +1,7 @@
 package com.karsa.mq;
 
+import com.karsa.utils.BeanUtil;
+import com.karsa.vo.mq.SkMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
@@ -14,9 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class MqConsumer {
 
-    @RabbitListener(queues = MQConfig.HELLO_MQ)
+    @RabbitListener(queues = MQConfig.HELLO_SK)
     public void receiveMq(String message) {
         log.info("收到消息" + message);
+        SkMessage skMessage = BeanUtil.stringToBean(message, SkMessage.class);
+        log.info("消息对象,{}", skMessage);
 
     }
 }

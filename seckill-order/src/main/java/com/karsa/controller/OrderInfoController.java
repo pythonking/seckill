@@ -2,6 +2,7 @@ package com.karsa.controller;
 
 
 import com.karsa.mq.send.MqProviderApi;
+import com.karsa.vo.mq.SkMessage;
 import com.karsa.vo.result.Results;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ public class OrderInfoController {
 
     @GetMapping("/mq/send")
     public Object getResult(Long orderId) {
-        rabbitTemplate.convertAndSend("helloMQ", orderId);
+        SkMessage skMessage = new SkMessage(123999, orderId);
+        rabbitTemplate.convertAndSend("helloSK", skMessage);
         return Results.success(orderId);
     }
 }
