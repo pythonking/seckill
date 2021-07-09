@@ -37,9 +37,9 @@ public class WorkServiceImpl implements IWorkService {
     @Override
     public void downGoods() throws FileNotFoundException, IOException {
         List<GoodsExcelVo> excelVos = this.listGoodsExcel();
-        @Cleanup OutputStream os = new FileOutputStream(new File("demo.xlsx"));
+        @Cleanup OutputStream os = new FileOutputStream(new File("商品信息表.xlsx"));
         EasyExcel.write(os, GoodsExcelVo.class)
-                .sheet("商品信息表")
+                .sheet("商品sheet1")
                 .doWrite(excelVos);
     }
 }
