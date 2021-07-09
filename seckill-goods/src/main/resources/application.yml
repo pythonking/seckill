@@ -15,6 +15,40 @@ spring:
         max-active: 20
         max-wait: 2000
     password:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+    # 消费者数量
+    listener:
+      simple:
+        #消费者最小数量
+        concurrency: 10
+        max-concurrency: 10
+        # 限制消费者消费数量,处理完才能读取下一条
+        prefetch: 1
+        # 消费者默认启动
+        auto-startup: true
+        acknowledge-mode: manual
+        # 允许消费者消费失败后，将消息重新压入队列中
+        default-requeue-rejected: true
+      direct:
+        acknowledge-mode: manual
+    template:
+      # 失败重试
+      retry:
+        enabled: false
+        #重试间隔
+        initial-interval: 1000
+        #重试最大间隔
+        max-interval: 10000
+        #重试最大次数
+        max-attempts: 3
+        #重试的间隔乘数
+        multiplier: 1
+    #如果没有本条配置信息，当消费者收到生产者发送的消息后，生产者无法收到确认成功的回调信息
+    publisher-confirm-type: correlated
 
 
 
