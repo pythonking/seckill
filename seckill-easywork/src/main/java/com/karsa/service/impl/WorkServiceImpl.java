@@ -22,14 +22,14 @@ public class WorkServiceImpl implements IWorkService {
 
 
     @Override
-    public void downGoods() throws FileNotFoundException {
+    public void downGoods() throws IOException {
         List<GoodsExcelVo> excelVos = goodExcelService.listGoodsExcel();
         @Cleanup OutputStream os = new FileOutputStream(new File(PATH_EXCEL + "商品表.xlsx"));
         EasyExcel.write(os, GoodsExcelVo.class).sheet("商品1").doWrite(excelVos);
     }
 
     @Override
-    public Boolean readExcel() throws FileNotFoundException {
+    public Boolean readExcel() throws IOException {
 
         @Cleanup InputStream inputStream = new FileInputStream(new File(PATH_EXCEL + "商品表.xlsx"));
         // Excel表格数据记录解析为具体的实体对象集合
