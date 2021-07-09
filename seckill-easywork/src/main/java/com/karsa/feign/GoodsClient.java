@@ -4,6 +4,7 @@ package com.karsa.feign;
 import com.karsa.dto.GoodsInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -24,6 +25,6 @@ public interface GoodsClient {
      *
      * @param infoList
      */
-    @GetMapping(value = "/endpoint/batchInfoInsert")
+    @PostMapping(value = "/endpoint/batchInfoInsert")
     Boolean batchInfoInsert(List<GoodsInfo> infoList);
 }

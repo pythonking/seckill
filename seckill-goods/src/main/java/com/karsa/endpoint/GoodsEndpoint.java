@@ -4,6 +4,7 @@ import com.karsa.dto.GoodsInfo;
 import com.karsa.service.IGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,7 +50,7 @@ public class GoodsEndpoint {
      * @param infoList
      * @return
      */
-    @GetMapping(value = "/batchInfoInsert")
+    @PostMapping(value = "/batchInfoInsert")
     public Boolean batchInfoInsert(List<GoodsInfo> infoList) {
         return goodsService.batchInfoInsert(infoList);
     }
