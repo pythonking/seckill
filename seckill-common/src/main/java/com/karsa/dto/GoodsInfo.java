@@ -1,11 +1,8 @@
 package com.karsa.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -28,7 +25,6 @@ public class GoodsInfo implements Serializable {
     /**
      * 商品ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**

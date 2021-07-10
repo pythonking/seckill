@@ -29,7 +29,7 @@ public class Goods implements Serializable {
     /**
      * 商品ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id")
     private Long id;
 
     /**
