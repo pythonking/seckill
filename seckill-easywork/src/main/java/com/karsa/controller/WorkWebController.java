@@ -2,7 +2,10 @@ package com.karsa.controller;
 
 
 import com.alibaba.excel.EasyExcel;
-import com.karsa.service.IWorkService;
+import com.karsa.dao.UploadDAO;
+import com.karsa.entity.DownloadData;
+import com.karsa.entity.UploadData;
+import com.karsa.listener.UploadDataListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 工具类
@@ -19,7 +25,7 @@ import java.net.URLEncoder;
 public class WorkWebController {
 
     @Autowired
-    private IWorkService workService;
+    private UploadDAO uploadDAO;
 
     /**
      * 文件下载（失败了会返回一个有部分数据的Excel）
@@ -49,6 +55,18 @@ public class WorkWebController {
     public String upload(MultipartFile file) throws IOException {
         EasyExcel.read(file.getInputStream(), UploadData.class, new UploadDataListener(uploadDAO)).sheet().doRead();
         return "success";
+    }
+
+    private List<DownloadData> data() {
+        List<DownloadData> list = new ArrayList<DownloadData>();
+        for (int i = 0; i < 10; i++) {
+            DownloadData data = new DownloadData();
+            data.setString("字符串" + 0);
+            data.setDate(new Date());
+            data.setDoubleData(0.56);
+            list.add(data);
+        }
+        return list;
     }
 
 }
