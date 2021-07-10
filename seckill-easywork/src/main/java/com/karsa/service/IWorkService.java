@@ -5,7 +5,9 @@ import java.io.IOException;
 
 public interface IWorkService {
 
-    void downGoods() throws IOException;
+    void writeGoods() throws IOException;
+
+    void writeGoods2() throws IOException;
 
     /**
      * 导入excel

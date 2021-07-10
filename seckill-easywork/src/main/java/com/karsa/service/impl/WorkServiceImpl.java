@@ -22,10 +22,18 @@ public class WorkServiceImpl implements IWorkService {
 
 
     @Override
-    public void downGoods() throws IOException {
+    public void writeGoods() throws IOException {
         List<GoodsExcelVo> excelVos = goodExcelService.listGoodsExcel();
         @Cleanup OutputStream os = new FileOutputStream(new File(PATH_EXCEL + "商品表.xlsx"));
         EasyExcel.write(os, GoodsExcelVo.class).sheet("商品1").doWrite(excelVos);
+    }
+
+
+    @Override
+    public void writeGoods2() throws IOException {
+        List<GoodsExcelVo> excelVos = goodExcelService.listGoodsExcel();
+        String fileName = PATH_EXCEL + "write" + File.separator + "商品表.xlsx";
+        EasyExcel.write(fileName, GoodsExcelVo.class).sheet("商品1").doWrite(excelVos);
     }
 
     @Override

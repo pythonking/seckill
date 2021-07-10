@@ -20,9 +20,9 @@ public class WorkController {
     @Autowired
     private IWorkService workService;
 
-    @GetMapping("/goods/down")
+    @GetMapping("/goods/write")
     public Object downGoods() throws IOException {
-        workService.downGoods();
+        workService.writeGoods();
         return Results.success();
     }
 
