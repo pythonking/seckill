@@ -8,7 +8,10 @@
         <module>seckill-gateway</module>
         <module>seckill-mq</module>
         <module>seckill-goods</module>
+        <module>seckill-user</module>
         <module>seckill-order</module>
+        <module>seckill-easywork</module>
+        <module>seckill-pay</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
