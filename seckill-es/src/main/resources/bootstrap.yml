@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_HOST}:${NACOS_PORT}
+        file-extension: yml
+        namespace: ${NACOS_CONFIG_NAMESPACE:""}
+        shared-configs[0]:
+          dataId: seckill.yml
+          refresh: true
+      discovery:
+        server-addr: ${NACOS_HOST}:${NACOS_PORT}
+        namespace: ${NACOS_DISCOVERY_NAMESPACE:""}
+
+

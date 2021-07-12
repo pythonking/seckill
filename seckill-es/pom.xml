@@ -7,29 +7,34 @@
         <groupId>com.karsa</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.karsa</groupId>
-    <artifactId>seckill-goods</artifactId>
+    <groupId>com.seckill</groupId>
+    <artifactId>seckill-es</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>seckill-goods</name>
+    <name>seckill-es</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
-        <skipTests>true</skipTests>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.karsa</groupId>
-            <artifactId>seckill-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
