@@ -1,26 +1,22 @@
 package com.karsa.utils;
 
 import com.karsa.constants.GlobalResponseCode;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
 public class Result<T> implements Serializable {
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(
-            value = "返回code",
-            example = "200000"
-    )
+    /**
+     * 返回code
+     */
     private int code;
-    @ApiModelProperty(
-            value = "返回描述",
-            example = "success"
-    )
+    /**
+     * 返回描述
+     */
     private String msg;
-    @ApiModelProperty(
-            value = "返回数据",
-            example = "data"
-    )
+    /**
+     * 返回数据
+     */
     private T data;
 
     public Result() {
