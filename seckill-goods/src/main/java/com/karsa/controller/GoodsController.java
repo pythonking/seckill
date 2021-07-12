@@ -1,14 +1,17 @@
 package com.karsa.controller;
 
 
+import com.karsa.dto.GoodsListReq;
 import com.karsa.entity.Goods;
 import com.karsa.service.IGoodsService;
 import com.karsa.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 
 /**
@@ -28,8 +31,8 @@ public class GoodsController {
     private RedisUtil redisUtil;
 
     @GetMapping("/list")
-    public Object listGoods() {
-        return goodsService.list();
+    public Object listGoods(@RequestBody @Valid GoodsListReq req) {
+        return goodsService.listByReq(req);
     }
 
     @GetMapping("/info")

@@ -2,6 +2,7 @@ package com.karsa.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.karsa.dto.GoodsInfo;
+import com.karsa.dto.GoodsListReq;
 import com.karsa.dto.GoodsVo;
 import com.karsa.entity.Goods;
 import com.karsa.mapper.GoodsMapper;
@@ -76,5 +77,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
             goodsList.add(goods);
         }
         return this.saveBatch(goodsList);
+    }
+
+    @Override
+    public List<Goods> listByReq(GoodsListReq req) {
+        return this.list();
     }
 }

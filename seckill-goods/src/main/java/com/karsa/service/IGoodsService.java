@@ -2,6 +2,7 @@ package com.karsa.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.karsa.dto.GoodsInfo;
+import com.karsa.dto.GoodsListReq;
 import com.karsa.dto.GoodsVo;
 import com.karsa.entity.Goods;
 
@@ -54,4 +55,12 @@ public interface IGoodsService extends IService<Goods> {
      * @return
      */
     Boolean batchInfoInsert(List<GoodsInfo> infoList);
+
+    /**
+     * 获取商品:模糊搜索
+     *
+     * @param req
+     * @return
+     */
+    List<Goods> listByReq(GoodsListReq req);
 }

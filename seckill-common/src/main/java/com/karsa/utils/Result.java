@@ -28,17 +28,13 @@ public class Result<T> implements Serializable {
         this.msg = "success";
     }
 
+
     public Result(Integer code) {
         this.code = GlobalResponseCode.SUCCESS;
         this.msg = "success";
         this.code = code;
     }
 
-    public Result(int code) {
-        this.code = GlobalResponseCode.SUCCESS;
-        this.msg = "success";
-        this.code = code;
-    }
 
     public Result(T data) {
         this.code = GlobalResponseCode.SUCCESS;
@@ -99,21 +95,6 @@ public class Result<T> implements Serializable {
         return new Result(datas, code, msg);
     }
 
-    public static <T> Result.ResultBuilder<T> builder() {
-        return new Result.ResultBuilder();
-    }
-
-    public String toString() {
-        return "Result(code=" + this.getCode() + ", msg=" + this.getMsg() + ", data=" + this.getData() + ")";
-    }
-
-    public Result(final int code, final String msg, final T data) {
-        this.code = GlobalResponseCode.SUCCESS;
-        this.msg = "success";
-        this.code = code;
-        this.msg = msg;
-        this.data = data;
-    }
 
     public int getCode() {
         return this.code;
@@ -140,37 +121,5 @@ public class Result<T> implements Serializable {
     public Result<T> setData(final T data) {
         this.data = data;
         return this;
-    }
-
-    public static class ResultBuilder<T> {
-        private int code;
-        private String msg;
-        private T data;
-
-        ResultBuilder() {
-        }
-
-        public Result.ResultBuilder<T> code(final int code) {
-            this.code = code;
-            return this;
-        }
-
-        public Result.ResultBuilder<T> msg(final String msg) {
-            this.msg = msg;
-            return this;
-        }
-
-        public Result.ResultBuilder<T> data(final T data) {
-            this.data = data;
-            return this;
-        }
-
-        public Result<T> build() {
-            return new Result(this.code, this.msg, this.data);
-        }
-
-        public String toString() {
-            return "Result.ResultBuilder(code=" + this.code + ", msg=" + this.msg + ", data=" + this.data + ")";
-        }
     }
 }
