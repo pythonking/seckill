@@ -10,6 +10,7 @@ import com.karsa.service.IGoodsService;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -69,6 +70,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
+    @Transactional
     public Boolean batchInfoInsert(List<GoodsInfo> infoList) {
         List<Goods> goodsList = Lists.newArrayList();
         for (GoodsInfo goodsInfo : infoList) {

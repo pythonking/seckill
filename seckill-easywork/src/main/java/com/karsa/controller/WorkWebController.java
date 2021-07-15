@@ -5,8 +5,11 @@ import com.alibaba.excel.EasyExcel;
 import com.karsa.dao.UploadDAO;
 import com.karsa.entity.DownloadData;
 import com.karsa.entity.UploadData;
+import com.karsa.enums.ErrorCode;
 import com.karsa.listener.UploadDataListener;
 import com.karsa.service.IGoodExcelService;
+import com.karsa.utils.Result;
+import com.karsa.utils.ResultUtils;
 import com.karsa.vo.excel.GoodsExcelVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,9 +57,13 @@ public class WorkWebController {
      */
     @PostMapping("upload")
     @ResponseBody
-    public String upload(MultipartFile file) throws IOException {
-        EasyExcel.read(file.getInputStream(), GoodsExcelVo.class, new UploadDataListener(goodExcelService)).sheet().doRead();
-        return "success";
+    public Result upload(MultipartFile file) {
+        try {
+            EasyExcel.read(file.getInputStream(), GoodsExcelVo.class, new UploadDataListener(goodExcelService)).sheet().doRead();
+        } catch (IOException e) {
+            return ResultUtils.error(ErrorCode.FAIL);
+        }
+        return ResultUtils.success();
     }
 
 }
