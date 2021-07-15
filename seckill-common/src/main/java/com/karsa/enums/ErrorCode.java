@@ -31,13 +31,6 @@ public enum ErrorCode {
         this.message = message;
     }
 
-    public String toString() {
-        return "ErrorCode{" +
-                "code=" + code +
-                ",message='" + message + '\'' +
-                '}';
-    }
-
     public String getCode() {
         return code;
     }
