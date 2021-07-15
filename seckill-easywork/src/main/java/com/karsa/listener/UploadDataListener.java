@@ -3,8 +3,8 @@ package com.karsa.listener;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSON;
-import com.karsa.dao.UploadDAO;
 import com.karsa.entity.UploadData;
+import com.karsa.service.IGoodExcelService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -27,15 +27,15 @@ public class UploadDataListener extends AnalysisEventListener<UploadData> {
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
-    private UploadDAO uploadDAO;
+    private IGoodExcelService goodExcelService;
 
     /**
      * 如果使用了spring,请使用这个构造方法。每次创建Listener的时候需要把spring管理的类传进来
      *
      * @param uploadDAO
      */
-    public UploadDataListener(UploadDAO uploadDAO) {
-        this.uploadDAO = uploadDAO;
+    public UploadDataListener(IGoodExcelService goodExcelService) {
+        this.goodExcelService = goodExcelService;
     }
 
     /**
@@ -73,7 +73,7 @@ public class UploadDataListener extends AnalysisEventListener<UploadData> {
      */
     private void saveData() {
         log.info("{}条数据，开始存储数据库！", list.size());
-        uploadDAO.save(list);
+        goodExcelService.batchExcelInsert(list);
         log.info("存储数据库成功！");
     }
 }

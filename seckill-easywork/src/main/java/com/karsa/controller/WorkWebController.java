@@ -7,6 +7,7 @@ import com.karsa.entity.DownloadData;
 import com.karsa.entity.UploadData;
 import com.karsa.listener.UploadDataListener;
 import com.karsa.service.IGoodExcelService;
+import com.karsa.vo.excel.GoodsExcelVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,9 +41,9 @@ public class WorkWebController {
         response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");
         // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-        String fileName = URLEncoder.encode("测试", "UTF-8");
+        String fileName = URLEncoder.encode("商品列表", "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), DownloadData.class).sheet("模板").doWrite(goodExcelService.listGoodsExcel());
+        EasyExcel.write(response.getOutputStream(), GoodsExcelVo.class).sheet("商品1").doWrite(goodExcelService.listGoodsExcel());
     }
 
     /**
@@ -54,7 +55,7 @@ public class WorkWebController {
     @PostMapping("upload")
     @ResponseBody
     public String upload(MultipartFile file) throws IOException {
-        EasyExcel.read(file.getInputStream(), UploadData.class, new UploadDataListener(uploadDAO)).sheet().doRead();
+        EasyExcel.read(file.getInputStream(), UploadData.class, new UploadDataListener(goodExcelService)).sheet().doRead();
         return "success";
     }
 
