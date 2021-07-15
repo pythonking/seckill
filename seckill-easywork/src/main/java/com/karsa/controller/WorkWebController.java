@@ -55,7 +55,7 @@ public class WorkWebController {
     @PostMapping("upload")
     @ResponseBody
     public String upload(MultipartFile file) throws IOException {
-        EasyExcel.read(file.getInputStream(), UploadData.class, new UploadDataListener(goodExcelService)).sheet().doRead();
+        EasyExcel.read(file.getInputStream(), GoodsExcelVo.class, new UploadDataListener(goodExcelService)).sheet().doRead();
         return "success";
     }
 
