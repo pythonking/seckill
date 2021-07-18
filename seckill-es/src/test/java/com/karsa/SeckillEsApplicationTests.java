@@ -16,6 +16,8 @@ import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.CreateIndexRequest;
+import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -40,6 +42,16 @@ import java.util.concurrent.TimeUnit;
 class SeckillEsApplicationTests {
     @Autowired
     RestHighLevelClient restHighLevelClient;
+
+
+    @Test
+    void testCreateIndex() throws IOException {
+        //1.创建索引请求
+        CreateIndexRequest request = new CreateIndexRequest("karsa_index2");
+        //2.执行请求
+        CreateIndexResponse response = restHighLevelClient.indices().create(request, RequestOptions.DEFAULT);
+        log.info("获取创建索引 {}", response.index());
+    }
 
 
     /**
