@@ -79,17 +79,23 @@ class SeckillEsApplicationTests {
 
 
     /**
-     * 更新文档信息
+     * 查询文档信息
      *
      * @throws IOException
      */
     @Test
     void queryDocument() throws IOException {
 
-        GetRequest request = new GetRequest("phone_index", "1");
+        GetRequest request = new GetRequest("karsa_index", "V8QvuXoBhMB5gN_AWKgN");
+        //不获取 Source 返回的上下文
+//        request.fetchSourceContext(new FetchSourceContext(false));
+//        request.storedFields("_none_");
+
+        boolean exists = restHighLevelClient.exists(request, RequestOptions.DEFAULT);
+        log.info("文档内容是否存在 {}", exists);
 
         GetResponse documentFields = restHighLevelClient.get(request, RequestOptions.DEFAULT);
-        log.info("文档内容 {}", documentFields.getSource());  // 获取文档内容 返回 Map
+        log.info("文档内容 {}", documentFields.getSourceAsString());  // 获取文档内容 返回 Map
         log.info("文档所有内容 {}", documentFields);  // 获取文档所有信息
 
 
@@ -130,15 +136,14 @@ class SeckillEsApplicationTests {
         updateRequest.timeout("1s");
 
         // 创建新对象
-        GoodsInfo info = new GoodsInfo("小米手机", new BigDecimal(1999), 1000);
+        GoodsInfo info = new GoodsInfo("小米手机", new BigDecimal(2999.9), 1001);
 
         updateRequest.doc(JSON.toJSONString(info), XContentType.JSON);
 
         UpdateResponse update = restHighLevelClient.update(updateRequest, RequestOptions.DEFAULT);
 
-        System.out.println(update.status());
-
-        System.out.println(update);
+        log.info("获取状态,{}", update.status());
+        log.info("获取结果,{}", update);
 
 
     }
@@ -152,11 +157,11 @@ class SeckillEsApplicationTests {
     @Test
     void deleteDocument() throws IOException {
 
-        DeleteRequest deleteRequest = new DeleteRequest("phone_index", "1");
+        DeleteRequest deleteRequest = new DeleteRequest("phone_index", "6");
         deleteRequest.timeout("1s");
 
         DeleteResponse delete = restHighLevelClient.delete(deleteRequest, RequestOptions.DEFAULT);
-        System.out.println(delete.status());
+        log.info("获取结果,{},状态,{}", delete, delete.status());
 
     }
 
@@ -172,12 +177,12 @@ class SeckillEsApplicationTests {
 
         List<GoodsInfo> arrayList = new ArrayList<>();
 
-        arrayList.add(new GoodsInfo("小米手机", new BigDecimal(1999), 1000));
-        arrayList.add(new GoodsInfo("苹果手机", new BigDecimal(5999), 3000));
-        arrayList.add(new GoodsInfo("华为手机", new BigDecimal(4999), 2222));
-        arrayList.add(new GoodsInfo("OPPO手机", new BigDecimal(3999), 4444));
-        arrayList.add(new GoodsInfo("VIVO手机", new BigDecimal(2999), 5555));
-        arrayList.add(new GoodsInfo("三星手机", new BigDecimal(999), 6666));
+        arrayList.add(new GoodsInfo("mobile1", "小米手机", new BigDecimal(1999), 1000));
+        arrayList.add(new GoodsInfo("mobile2", "苹果手机", new BigDecimal(5999), 3000));
+        arrayList.add(new GoodsInfo("mobile3", "华为手机", new BigDecimal(4999), 2222));
+        arrayList.add(new GoodsInfo("mobile4", "OPPO手机", new BigDecimal(3999), 4444));
+        arrayList.add(new GoodsInfo("mobile5", "VIVO手机", new BigDecimal(2999), 5555));
+        arrayList.add(new GoodsInfo("mobile6", "三星手机", new BigDecimal(999), 6666));
 
 
         for (int i = 0; i < arrayList.size(); i++) {
@@ -194,23 +199,32 @@ class SeckillEsApplicationTests {
 
     /**
      * 查询数据
+     * SearchRequest 搜索请求
+     * SearchSourceBuilder 条件构造
+     * QueryBuilders 条件构造
+     * HighlightBuilder 高亮构造
+     * TermQueryBuilder 精确构造
+     * MatchQueryBuilder 匹配构造
      *
      * @throws IOException
      */
     @Test
     void queryData() throws IOException {
 
-        SearchRequest searchRequest = new SearchRequest("changan_index");
+        SearchRequest searchRequest = new SearchRequest("phone_index");
 
         // 构建搜索条件
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        searchSourceBuilder.highlighter();
 
         /*
          * 查询条件, 我们可以使用 QueryBuilders 工具类来实现
          * QueryBuilders.termQuery()  精确查询
          * QueryBuilders.matchAllQuery() 查询所有数据
          */
-        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("name", "hjj");
+        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("name", "mobile1");
+//        MatchAllQueryBuilder matchAllQueryBuilder = QueryBuilders.matchAllQuery();
+//        MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("name", "mobile");
 
         searchSourceBuilder.query(termQueryBuilder);
 
@@ -221,14 +235,14 @@ class SeckillEsApplicationTests {
 
         SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
 
-        System.out.println(JSON.toJSONString(search.getHits()));
+        log.info("结果集 {}", JSON.toJSONString(search.getHits()));
 
         System.out.println("===========");
 
 
         for (SearchHit searchHit : search.getHits().getHits()) {
 
-            System.out.println(searchHit.getSourceAsMap());
+            log.info("获取结果 {}", searchHit.getSourceAsMap());
         }
 
     }

@@ -30,6 +30,11 @@ public class GoodsInfo implements Serializable {
     private Long id;
 
     /**
+     * 商名称
+     */
+    private String name;
+
+    /**
      * 商品名称
      */
     private String goodsName;
@@ -60,6 +65,13 @@ public class GoodsInfo implements Serializable {
     private Integer goodsStock;
 
     public GoodsInfo(String goodsName, BigDecimal goodsPrice, Integer goodsStock) {
+        this.goodsName = goodsName;
+        this.goodsPrice = goodsPrice;
+        this.goodsStock = goodsStock;
+    }
+
+    public GoodsInfo(String name, String goodsName, BigDecimal goodsPrice, Integer goodsStock) {
+        this.name = name;
         this.goodsName = goodsName;
         this.goodsPrice = goodsPrice;
         this.goodsStock = goodsStock;
