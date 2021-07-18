@@ -94,7 +94,7 @@ class SeckillEsApplicationTests {
     @Test
     void deleteDocument() throws IOException {
 
-        DeleteRequest deleteRequest = new DeleteRequest("changan_index", "1");
+        DeleteRequest deleteRequest = new DeleteRequest("phone_index", "1");
         deleteRequest.timeout("1s");
 
         DeleteResponse delete = restHighLevelClient.delete(deleteRequest, RequestOptions.DEFAULT);
