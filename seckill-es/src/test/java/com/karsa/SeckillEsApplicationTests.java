@@ -3,6 +3,7 @@ package com.karsa;
 import com.alibaba.fastjson.JSON;
 import com.karsa.dto.GoodsInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.delete.DeleteRequest;
@@ -10,14 +11,17 @@ import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
+import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -43,7 +47,7 @@ class SeckillEsApplicationTests {
     @Autowired
     RestHighLevelClient restHighLevelClient;
 
-
+    //创建索引
     @Test
     void testCreateIndex() throws IOException {
         //1.创建索引请求
@@ -51,6 +55,26 @@ class SeckillEsApplicationTests {
         //2.执行请求
         CreateIndexResponse response = restHighLevelClient.indices().create(request, RequestOptions.DEFAULT);
         log.info("获取创建索引 {}", response.index());
+    }
+
+    //检测索引
+    @Test
+    void testIfExistIndex() throws IOException {
+        //1.创建索引请求
+        GetIndexRequest request = new GetIndexRequest("karsa_index3");
+        //2.执行请求
+        boolean exists = restHighLevelClient.indices().exists(request, RequestOptions.DEFAULT);
+        log.info("检测索引是否存在 {}", exists);
+    }
+
+    //检测索引
+    @Test
+    void testDelIndex() throws IOException {
+        //1.创建索引请求
+        DeleteIndexRequest request = new DeleteIndexRequest("karsa_index2");
+        //2.执行请求
+        AcknowledgedResponse delete = restHighLevelClient.indices().delete(request, RequestOptions.DEFAULT);
+        log.info("删除索引 {}", delete.isAcknowledged());
     }
 
 
@@ -68,6 +92,28 @@ class SeckillEsApplicationTests {
         log.info("文档内容 {}", documentFields.getSource());  // 获取文档内容 返回 Map
         log.info("文档所有内容 {}", documentFields);  // 获取文档所有信息
 
+
+    }
+
+
+    /**
+     * 添加文档信息
+     *
+     * @throws IOException
+     */
+    @Test
+    void addDocument() throws IOException {
+        IndexRequest request = new IndexRequest("karsa_index");
+        request.timeout("1s");
+
+        // 创建新对象
+        GoodsInfo info = new GoodsInfo("小米手机", new BigDecimal(1999), 1000);
+        //将数据放入请求
+        request.source(JSON.toJSONString(info), XContentType.JSON);
+        //客户端发送请求
+        IndexResponse indexResponse = restHighLevelClient.index(request, RequestOptions.DEFAULT);
+        log.info("获取创建对象,{}", indexResponse);
+        log.info("获取创建对象状态,{}", indexResponse.status());
 
     }
 
