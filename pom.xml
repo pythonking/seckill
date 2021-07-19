@@ -13,6 +13,7 @@
         <module>seckill-easywork</module>
         <module>seckill-pay</module>
         <module>seckill-es</module>
+        <module>seckill-graylog</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
