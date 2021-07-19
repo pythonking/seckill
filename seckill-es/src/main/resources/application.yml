@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: seckill-es
+  #关闭 thymeleaf 缓存
+  thymeleaf:
+    cache: false
   elasticsearch:
     rest:
       uris: http://122.112.234.109:9020

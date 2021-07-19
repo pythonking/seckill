@@ -21,3 +21,9 @@ http://127.0.0.1:8082/goods/list
     "id": "",
     "goodsName": ""
 }
+
+
+local-es
+http://127.0.0.1:8089
+{{local-es}}/search/jd_goods/go/1/30
+{{local-es}}/parse/go
