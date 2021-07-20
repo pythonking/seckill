@@ -12,6 +12,7 @@
         <module>seckill-order</module>
         <module>seckill-easywork</module>
         <module>seckill-pay</module>
+        <module>seckill-mongo</module>
         <module>seckill-es</module>
         <module>seckill-graylog</module>
     </modules>
