@@ -23,7 +23,7 @@ http://127.0.0.1:8082/goods/list
 }
 
 
-local-es
+{{seckill-es-local}}
 http://127.0.0.1:8089
-{{local-es}}/search/jd_goods/go/1/30
-{{local-es}}/parse/go
+/search/jd_goods/go/1/30/true    搜索-->>es
+/parse/go                        爬虫-->>es
