@@ -15,6 +15,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,9 @@ import java.util.concurrent.TimeUnit;
 
 public class EsUtils {
     public static <T> BulkRequest buildBulkRequest(String esIndex, List<T> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
         BulkRequest bulkRequest = new BulkRequest();
         bulkRequest.timeout("1s");
         for (int i = 0; i < list.size(); i++) {

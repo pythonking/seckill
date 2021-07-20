@@ -25,8 +25,10 @@ public class HtmlParseUtil {
      * @throws IOException
      */
     public static List<JdContent> parseJD(String keyword) throws IOException {
-        Document document = Jsoup.parse(new URL(URL_JD + keyword), 30000);
+        String jsoupUrl = URL_JD + keyword;
+        Document document = Jsoup.parse(new URL(jsoupUrl), 30000);
         Element element = document.getElementById("J_goodsList");
+        log.info("爬虫地址 {},爬到京东数据 {}", jsoupUrl, element);
         if (null == element) {
             return null;
         }

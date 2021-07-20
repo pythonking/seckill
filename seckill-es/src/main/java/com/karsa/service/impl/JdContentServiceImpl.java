@@ -29,6 +29,9 @@ public class JdContentServiceImpl implements IJdContentService {
     public Boolean butchBulk(String keyword) throws IOException {
         List<JdContent> jdContentList = HtmlParseUtil.parseJD(keyword);
         BulkRequest bulkRequest = EsUtils.buildBulkRequest("jd_goods", jdContentList);
+        if (null == bulkRequest) {
+            return Boolean.FALSE;
+        }
         BulkResponse bulkResponse = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
         return !bulkResponse.hasFailures();
     }
