@@ -38,6 +38,6 @@ public class JdContentServiceImpl implements IJdContentService {
         SearchRequest searchRequest = EsUtils.buildSearchRequest(esPage);
         SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
         log.info("结果集 {}", JSON.toJSONString(searchResponse.getHits()));
-        return EsUtils.parseResponse(esPage.isHighLightFlag(),searchResponse);
+        return EsUtils.parseResponse(esPage.isHighLightFlag(), searchResponse);
     }
 }
