@@ -22,6 +22,14 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class EsUtils {
+    /**
+     * 列表数据放入 es
+     *
+     * @param esIndex
+     * @param list
+     * @param <T>
+     * @return
+     */
     public static <T> BulkRequest buildBulkRequest(String esIndex, List<T> list) {
         if (CollectionUtils.isEmpty(list)) {
             return null;
@@ -60,24 +68,6 @@ public class EsUtils {
         return searchRequest;
     }
 
-    /**
-     * 构建高亮搜索
-     *
-     * @param highLightFlag
-     * @param sourceBuilder
-     */
-    private static void buildHighLightRequest(boolean highLightFlag, SearchSourceBuilder sourceBuilder) {
-        if (!highLightFlag) {
-            return;
-        }
-        //高亮
-        HighlightBuilder highlightBuilder = new HighlightBuilder();
-        highlightBuilder.field("title");
-        highlightBuilder.requireFieldMatch(false);//多个高亮显示
-        highlightBuilder.preTags("<span style='color:red'>");
-        highlightBuilder.postTags("</span>");
-        sourceBuilder.highlighter(highlightBuilder);
-    }
 
     /**
      * 解析搜索结果:放入map文件
@@ -97,6 +87,25 @@ public class EsUtils {
             list.add(documentFields.getSourceAsMap());
         }
         return list;
+    }
+
+    /**
+     * 构建高亮搜索
+     *
+     * @param highLightFlag
+     * @param sourceBuilder
+     */
+    private static void buildHighLightRequest(boolean highLightFlag, SearchSourceBuilder sourceBuilder) {
+        if (!highLightFlag) {
+            return;
+        }
+        //高亮
+        HighlightBuilder highlightBuilder = new HighlightBuilder();
+        highlightBuilder.field("title");
+        highlightBuilder.requireFieldMatch(false);//多个高亮显示
+        highlightBuilder.preTags("<span style='color:red'>");
+        highlightBuilder.postTags("</span>");
+        sourceBuilder.highlighter(highlightBuilder);
     }
 
     /**
