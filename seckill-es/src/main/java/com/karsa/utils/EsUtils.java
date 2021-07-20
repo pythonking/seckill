@@ -6,12 +6,15 @@ import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 
 import java.util.List;
 import java.util.Map;
@@ -40,26 +43,79 @@ public class EsUtils {
         //条件搜索
         SearchRequest searchRequest = new SearchRequest(page.getIndex());
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
         //分页
         sourceBuilder.from(page.getPageNo());
         sourceBuilder.size(page.getPageSize());
         //精准匹配
         TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("title", page.getKeyword());
         sourceBuilder.query(termQueryBuilder);
-        //设置超时
-        sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+        buildHighLightRequest(page.isHighLightFlag(), sourceBuilder);
+        //搜索条件放入查询条件
         searchRequest.source(sourceBuilder);
         return searchRequest;
     }
 
+    /**
+     * 构建高亮搜索
+     *
+     * @param highLightFlag
+     * @param sourceBuilder
+     */
+    private static void buildHighLightRequest(boolean highLightFlag, SearchSourceBuilder sourceBuilder) {
+        if (!highLightFlag) {
+            return;
+        }
+        //高亮
+        HighlightBuilder highlightBuilder = new HighlightBuilder();
+        highlightBuilder.field("title");
+        highlightBuilder.requireFieldMatch(false);//多个高亮显示
+        highlightBuilder.preTags("<span style='color:red'>");
+        highlightBuilder.postTags("</span>");
+        sourceBuilder.highlighter(highlightBuilder);
+    }
 
-    public static List<Map<String, Object>> parseResponse(SearchResponse response) {
+    /**
+     * 解析搜索结果:放入map文件
+     *
+     * @param response
+     * @return
+     */
+    public static List<Map<String, Object>> parseResponse(boolean highLightFlag, SearchResponse response) {
         if (null == response) {
             return null;
+        }
+        if (highLightFlag) {
+            return parseHighlightResponse(response);
         }
         List<Map<String, Object>> list = Lists.newArrayList();
         for (SearchHit documentFields : response.getHits().getHits()) {
             list.add(documentFields.getSourceAsMap());
+        }
+        return list;
+    }
+
+    /**
+     * 解析搜索结果:高亮,放入map文件
+     *
+     * @param response
+     * @return
+     */
+    private static List<Map<String, Object>> parseHighlightResponse(SearchResponse response) {
+        List<Map<String, Object>> list = Lists.newArrayList();
+        for (SearchHit documentFields : response.getHits().getHits()) {
+            Map<String, HighlightField> highlightFields = documentFields.getHighlightFields();
+            HighlightField title = highlightFields.get("title");
+            Map<String, Object> sourceAsMap = documentFields.getSourceAsMap();
+            if (null != title) {
+                Text[] fragments = title.fragments();
+                String n_title = "";
+                for (Text text : fragments) {
+                    n_title += text;
+                }
+                sourceAsMap.put("title", n_title);
+            }
+            list.add(sourceAsMap);
         }
         return list;
     }

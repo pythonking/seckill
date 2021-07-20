@@ -25,9 +25,9 @@ public class JdContentController {
         return flag;
     }
 
-    @GetMapping("/search/{index}/{keyword}/{pageNo}/{pageSize}")
-    public Object search(@PathVariable("index") String index, @PathVariable("keyword") String keyword, @PathVariable("pageNo") int pageNo, @PathVariable("pageSize") int pageSize) throws IOException {
-        List<Map<String, Object>> maps = jdContentService.searchPage(new EsPage(index, keyword, pageNo, pageSize));
+    @GetMapping("/search/{index}/{keyword}/{pageNo}/{pageSize}/{highLightFlag}")
+    public Object search(@PathVariable("index") String index, @PathVariable("keyword") String keyword, @PathVariable("pageNo") int pageNo, @PathVariable("pageSize") int pageSize, @PathVariable("highLightFlag") boolean highLightFlag) throws IOException {
+        List<Map<String, Object>> maps = jdContentService.searchPage(new EsPage(index, keyword, pageNo, pageSize, highLightFlag));
         return maps;
     }
 }

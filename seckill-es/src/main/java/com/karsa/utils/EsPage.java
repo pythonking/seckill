@@ -24,4 +24,8 @@ public class EsPage {
      * 每页数量
      */
     private int pageSize = 10;
+    /**
+     * 高亮
+     */
+    private boolean highLightFlag = false;
 }
