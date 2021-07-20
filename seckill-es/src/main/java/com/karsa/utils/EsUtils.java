@@ -35,7 +35,7 @@ public class EsUtils {
     }
 
     /**
-     * 查询数据
+     * 构建查询数据请求
      * SearchRequest 搜索请求
      * SearchSourceBuilder 条件构造
      * QueryBuilders 条件构造
