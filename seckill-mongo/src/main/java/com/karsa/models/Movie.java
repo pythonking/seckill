@@ -3,6 +3,7 @@ package com.karsa.models;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 
@@ -14,15 +15,17 @@ public class Movie implements Serializable {
     /**
      * 名称
      */
+    @Field("name")
     private String name;
     /**
      * 发布年
      */
-    private int years;
+    @Field("years")
+    private Integer years;
     /**
      * 导演性别
      */
-    private boolean gender;
+    private Boolean gender;
     /**
      * 发时间
      */

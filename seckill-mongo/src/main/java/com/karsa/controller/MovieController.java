@@ -31,7 +31,7 @@ public class MovieController {
      */
     @GetMapping(value = "/{id}")
     public Movie readMovieById(@PathVariable("id") String id) {
-        return movieRepository.findById(id).get();
+        return movieRepository.findById(id).orElse(new Movie());
     }
 
     /**
@@ -44,9 +44,26 @@ public class MovieController {
     public Movie readMovieByName(@PathVariable("name") String name) {
         Movie movie = new Movie();
         movie.setName(name);
-        ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("years", "birth");
+        //ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("years", "birth");
+        Example<Movie> example = Example.of(movie);
+        return movieRepository.findOne(example).orElse(new Movie());
+    }
+
+
+    /**
+     * 根据一个或者多个属性查询单个结果
+     *
+     * @param years
+     * @return
+     */
+    @GetMapping(value = "/years/{years}")
+    public Movie readMovieByName(@PathVariable("years") Integer years) {
+        Movie movie = new Movie();
+        movie.setYears(years);
+        //ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("years", "birth");
+        ExampleMatcher matcher = ExampleMatcher.matching();
         Example<Movie> example = Example.of(movie, matcher);
-        return movieRepository.findOne(example).get();
+        return movieRepository.findOne(example).orElse(new Movie());
     }
 
     /**
