@@ -75,9 +75,21 @@ public class MovieController {
     public Movie readMovieByName(@PathVariable("years") Integer years) {
         Movie movie = new Movie();
         movie.setYears(years);
-        //ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("years", "birth");
-        ExampleMatcher matcher = ExampleMatcher.matching();
-        Example<Movie> example = Example.of(movie, matcher);
+        Example<Movie> example = Example.of(movie);
+        return movieRepository.findOne(example).orElse(new Movie());
+    }
+
+    /**
+     * 根据一个或者多个属性查询单个结果
+     *
+     * @param years
+     * @return
+     */
+    @GetMapping(value = "/years/count/{years}")
+    public Movie countYears(@PathVariable("years") Integer years) {
+        Movie movie = new Movie();
+        movie.setYears(years);
+        Example<Movie> example = Example.of(movie);
         return movieRepository.findOne(example).orElse(new Movie());
     }
 
