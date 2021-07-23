@@ -31,7 +31,11 @@ public class MovieController {
      */
     @GetMapping(value = "/{id}")
     public Movie readMovieById(@PathVariable("id") String id) {
-        return movieRepository.findById(id).orElse(new Movie());
+//        return movieRepository.findById(id).orElse(new Movie());
+        Movie movie = new Movie();
+        movie.setId(id);
+        Example<Movie> example = Example.of(movie);
+        return movieRepository.findOne(example).orElse(new Movie());
     }
 
     /**
