@@ -45,7 +45,7 @@ public class MovieController {
         Movie movie = new Movie();
         movie.setName(name);
         ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("id", "years", "gender", "birth", "director");
-        Example<Movie> example = Example.of(movie,matcher);
+        Example<Movie> example = Example.of(movie, matcher);
         return movieRepository.findOne(example).orElse(new Movie());
     }
 
@@ -61,7 +61,7 @@ public class MovieController {
         movie.setName(name);
         //ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("years", "birth");
         Example<Movie> example = Example.of(movie);
-        return movieRepository.findAll();
+        return movieRepository.findAll(example);
     }
 
 
