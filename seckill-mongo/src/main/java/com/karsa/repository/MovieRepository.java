@@ -8,5 +8,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MovieRepository extends MongoRepository<Movie, String> {
+    /**
+     * 模糊搜索
+     *
+     * @param keyWords
+     * @param pageable
+     * @return
+     */
     Page<Movie> findByNameLike(String keyWords, PageRequest pageable);
 }
