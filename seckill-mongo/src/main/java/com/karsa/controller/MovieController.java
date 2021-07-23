@@ -48,7 +48,8 @@ public class MovieController {
     public Movie readMovieByName(@PathVariable("name") String name) {
         Movie movie = new Movie();
         movie.setName(name);
-        ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("id", "years", "gender", "birth", "director");
+        ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("years", "gender");//忽略属性：是否关注。因为是基本类型，需要忽略掉,否则会因为基本数据类型未定义有初始值的情况导致查询失败
+//        ExampleMatcher matcher = ExampleMatcher.matching();
         Example<Movie> example = Example.of(movie, matcher);
         return movieRepository.findOne(example).orElse(new Movie());
     }
