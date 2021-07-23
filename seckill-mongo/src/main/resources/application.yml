@@ -6,4 +6,4 @@ spring:
     name: seckill-mongo
   data:
     mongodb:
-      uri:mongodb://localhost:27017/movie
+      uri: mongodb://localhost:27017/movie

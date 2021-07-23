@@ -78,7 +78,7 @@ public class MovieController {
      *
      * @return
      */
-    @GetMapping
+    @GetMapping("/read")
     public List<Movie> readMovies() {
         Sort sort = Sort.by(Order.asc("years"));
         return movieRepository.findAll(sort);

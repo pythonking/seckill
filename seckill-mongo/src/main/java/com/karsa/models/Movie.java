@@ -2,10 +2,12 @@ package com.karsa.models;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
 @Data
+@Document("movies")
 public class Movie implements Serializable {
     @Id
     private String id;
@@ -20,7 +22,7 @@ public class Movie implements Serializable {
     /**
      * 导演性别
      */
-    private int gender;
+    private boolean gender;
     /**
      * 发时间
      */
