@@ -105,7 +105,7 @@ public class MovieController {
         }
         Sort sort = Sort.by(Order.asc("years"));
         PageRequest pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-        return movieRepository.findByMovieNameLike(keyWords, pageable);
+        return movieRepository.findByNameLike(keyWords, pageable);
     }
 
     @ResponseStatus(HttpStatus.OK)
