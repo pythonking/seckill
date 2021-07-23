@@ -59,7 +59,6 @@ public class MovieController {
     public List<Movie> listMovie(@PathVariable("name") String name) {
         Movie movie = new Movie();
         movie.setName(name);
-        //ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("years", "birth");
         Example<Movie> example = Example.of(movie);
         return movieRepository.findAll(example);
     }
@@ -86,11 +85,11 @@ public class MovieController {
      * @return
      */
     @GetMapping(value = "/years/count/{years}")
-    public Movie countYears(@PathVariable("years") Integer years) {
+    public Long countYears(@PathVariable("years") Integer years) {
         Movie movie = new Movie();
         movie.setYears(years);
         Example<Movie> example = Example.of(movie);
-        return movieRepository.findOne(example).orElse(new Movie());
+        return movieRepository.count(example);
     }
 
     /**
