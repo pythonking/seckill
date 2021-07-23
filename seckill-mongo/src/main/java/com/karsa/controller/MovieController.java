@@ -44,9 +44,24 @@ public class MovieController {
     public Movie readMovieByName(@PathVariable("name") String name) {
         Movie movie = new Movie();
         movie.setName(name);
+        ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("id", "years", "gender", "birth", "director");
+        Example<Movie> example = Example.of(movie,matcher);
+        return movieRepository.findOne(example).orElse(new Movie());
+    }
+
+    /**
+     * 根据一个或者多个属性查询单个结果
+     *
+     * @param name
+     * @return
+     */
+    @GetMapping(value = "/like/{name}")
+    public List<Movie> listMovie(@PathVariable("name") String name) {
+        Movie movie = new Movie();
+        movie.setName(name);
         //ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("years", "birth");
         Example<Movie> example = Example.of(movie);
-        return movieRepository.findOne(example).orElse(new Movie());
+        return movieRepository.findAll();
     }
 
 
