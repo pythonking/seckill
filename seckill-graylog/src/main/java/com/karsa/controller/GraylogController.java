@@ -13,7 +13,7 @@ public class GraylogController {
 
     @GetMapping("/query")
     public Object queryLog() {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 10; i++) {
             log.info("info:{}","info 日志打印" + i);
             log.warn("warn:{}","warn 日志打印" + i);
             log.error("error:{}","error 日志打印" + i);
