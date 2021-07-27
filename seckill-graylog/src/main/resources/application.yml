@@ -3,11 +3,7 @@ server:
 
 spring:
   application:
-    name: seckill-es
-  elasticsearch:
-    rest:
-      uris: http://122.112.234.109:9020
-
+    name: seckill-graylog
 
 feign:
   hystrix:
