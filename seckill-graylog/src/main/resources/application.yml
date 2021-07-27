@@ -4,13 +4,3 @@ server:
 spring:
   application:
     name: seckill-graylog
-
-feign:
-  hystrix:
-    enabled: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream

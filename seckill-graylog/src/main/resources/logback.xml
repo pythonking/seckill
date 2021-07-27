@@ -36,7 +36,7 @@
                 <pattern>%d - [%thread] %-5level %logger{35} - %msg%n</pattern>
             </fullPatternLayout>
             <!-- 配置应用名称（服务名称），通过staticField标签可以自定义一些固定的日志字段 -->
-            <staticField>app_name:zzl-test</staticField>
+            <staticField>app_name:seckill-graylog</staticField>
         </encoder>
     </appender>
 
