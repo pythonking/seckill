@@ -4,3 +4,8 @@ server:
 spring:
   application:
     name: seckill-graylog
+
+graylog:
+  graylogHost: 122.112.234.109
+  graylogPort: 9082
+  app_name: seckill-graylog
