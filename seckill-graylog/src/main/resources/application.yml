@@ -7,5 +7,5 @@ spring:
 
 graylog:
   graylogHost: 122.112.234.109
-  graylogPort: 9082
+  graylogPort: 9021
   app_name: seckill-graylog
