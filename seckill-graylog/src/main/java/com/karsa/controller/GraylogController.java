@@ -13,9 +13,11 @@ public class GraylogController {
 
     @GetMapping("/query")
     public Object queryLog() {
-        log.info("INFO查询学生信息");
-        log.warn("WARN查询学生信息");
-        log.error("ERROR查询学生信息");
+        for (int i = 0; i < 10000; i++) {
+            log.info("info:{}","info 日志打印" + i);
+            log.warn("warn:{}","warn 日志打印" + i);
+            log.error("error:{}","error 日志打印" + i);
+        }
         return "success";
     }
 
