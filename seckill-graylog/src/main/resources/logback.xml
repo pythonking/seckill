@@ -15,7 +15,7 @@
         <!-- Graylog服务的地址 -->
         <graylogHost>122.112.234.109</graylogHost>
         <!-- UDP Input端口 -->
-        <graylogPort>12201</graylogPort>
+        <graylogPort>9021</graylogPort>
         <!-- 最大GELF数据块大小（单位：字节），508为建议最小值，最大值为65467 -->
         <maxChunkSize>508</maxChunkSize>
         <!-- 是否使用压缩 -->
