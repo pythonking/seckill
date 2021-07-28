@@ -1,4 +1,9 @@
 <configuration>
+    <!--引用 application.yml 里的配置-->
+    <springProperty scope="context" name="graylog.graylogHost" source="graylog.graylogHost"/>
+    <springProperty scope="context" name="graylog.graylogPort" source="graylog.graylogPort"/>
+    <springProperty scope="context" name="graylog.app_name" source="graylog.app_name"/>
+
     <!-- 配置控制台的输出日志 -->
     <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
@@ -13,9 +18,9 @@
 
     <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
         <!-- Graylog服务的地址 -->
-        <graylogHost>127.0.0.1</graylogHost>
-        <!-- UDP Input端口 -->
-        <graylogPort>12201</graylogPort>
+        <graylogHost>${graylog.graylogHost}</graylogHost>
+        <!-- UDP Input端口,默认:12201 -->
+        <graylogPort>${graylog.graylogPort}</graylogPort>
         <!-- 最大GELF数据块大小（单位：字节），508为建议最小值，最大值为65467 -->
         <maxChunkSize>508</maxChunkSize>
         <!-- 是否使用压缩 -->
@@ -36,12 +41,12 @@
                 <pattern>%d - [%thread] %-5level %logger{35} - %msg%n</pattern>
             </fullPatternLayout>
             <!-- 配置应用名称（服务名称），通过staticField标签可以自定义一些固定的日志字段 -->
-            <staticField>app_name:seckill-graylog</staticField>
+            <staticField>app_name:${graylog.app_name}</staticField>
         </encoder>
     </appender>
 
     <root level="info">
-        <appender-ref ref="GELF" />
-        <appender-ref ref="consoleLog" />
+        <appender-ref ref="GELF"/>
+        <appender-ref ref="consoleLog"/>
     </root>
 </configuration>
