@@ -39,7 +39,8 @@ public class JsonTest {
         bulkRequest.timeout("1s");
         List<TangshiInfo> arrayList = JSON.parseArray(TangshiJsonUtil.readJsonFile(JSON_TANGSHI), TangshiInfo.class);
         for (TangshiInfo info : arrayList) {
-            bulkRequest.add(new IndexRequest("somehi_index").id("" + info.getId()).source(JSON.toJSONString(info), XContentType.JSON));
+            IndexRequest somehi_index = new IndexRequest("somehi_index").id("" + info.getId()).source(JSON.toJSONString(info), XContentType.JSON);
+            bulkRequest.add(somehi_index);
         }
         BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
         //是否失败 false 就是成功
