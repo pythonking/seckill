@@ -34,12 +34,12 @@ public class JsonTest {
      * @throws IOException
      */
     @Test
-    public void bulkInsert() throws IOException {
+    public void bulkTangshi() throws IOException {
         BulkRequest bulkRequest = new BulkRequest();
         bulkRequest.timeout("1s");
         List<TangshiInfo> arrayList = JSON.parseArray(TangshiJsonUtil.readJsonFile(JSON_TANGSHI), TangshiInfo.class);
         for (TangshiInfo info : arrayList) {
-            bulkRequest.add(new IndexRequest("some_index").id("" + info.getId()).source(JSON.toJSONString(info), XContentType.JSON));
+            bulkRequest.add(new IndexRequest("somehi_index").id("" + info.getId()).source(JSON.toJSONString(info), XContentType.JSON));
         }
         BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
         //是否失败 false 就是成功

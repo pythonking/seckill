@@ -1,0 +1,44 @@
+{
+  "properties": {
+    "author": {
+      "type": "text",
+      "fields": {
+        "field": {
+          "type": "keyword"
+        }
+      },
+      "analyzer": "ik_max_word"
+    },
+    "contents": {
+      "type": "text",
+      "fields": {
+        "field": {
+          "type": "keyword"
+        }
+      },
+      "analyzer": "ik_max_word",
+      "fielddata": true
+    },
+    "timestamp": {
+      "type": "date"
+    },
+    "title": {
+      "type": "text",
+      "fields": {
+        "field": {
+          "type": "keyword"
+        }
+      },
+      "analyzer": "ik_max_word"
+    },
+    "type": {
+      "type": "text",
+      "fields": {
+        "field": {
+          "type": "keyword"
+        }
+      },
+      "analyzer": "ik_max_word"
+    }
+  }
+}
