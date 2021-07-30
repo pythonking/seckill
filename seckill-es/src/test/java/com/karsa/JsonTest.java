@@ -11,7 +11,6 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
-import org.elasticsearch.client.indices.PutMappingRequest;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,9 +55,9 @@ public class JsonTest {
      * @throws IOException
      */
     @Test
-    public void createIndex() throws IOException{
+    public void createIndex() throws IOException {
         //1.创建索引请求
-        CreateIndexRequest request = new CreateIndexRequest("somehi_index") ;
+        CreateIndexRequest request = new CreateIndexRequest("somehi_index");
         request.mapping("{\n" +
                 "  \"properties\": {\n" +
                 "    \"author\": {\n" +
@@ -102,7 +101,7 @@ public class JsonTest {
                 "      \"analyzer\": \"ik_max_word\"\n" +
                 "    }\n" +
                 "  }\n" +
-                "}",XContentType.JSON);
+                "}", XContentType.JSON);
         //2.执行请求
         CreateIndexResponse response = restHighLevelClient.indices().create(request, RequestOptions.DEFAULT);
         log.info("获取创建索引 {}", response.index());
