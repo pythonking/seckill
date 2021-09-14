@@ -3,7 +3,7 @@ package com.karsa.config;
 /**
  * @program: seckill
  * @description: 支付宝基础配置
- * @author: hp
+ * @author: Karsa
  * @since: 2021-09-14
  * @version: 1.0.0
  **/

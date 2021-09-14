@@ -1,5 +1,6 @@
 server:
   port: 8086
+  service-domain: http://127.0.0.1:8080
 
 spring:
   application:
@@ -16,3 +17,14 @@ management:
     web:
       exposure:
         include: hystrix.stream
+
+
+#微信支付配置
+pay:
+  wxpay:
+    app:
+      appID: '你的appid'
+      certPath: static/cert/wxpay/apiclient_cert.p12
+      key: '你的api秘钥，不是appSecret '
+      mchID: '你的商户id'
+      payNotifyUrl: ${server.service-domain}/api/wxPay/notify

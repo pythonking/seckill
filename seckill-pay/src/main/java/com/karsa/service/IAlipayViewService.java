@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @program: seckill
- * @author: hp
+ * @author: Karsa
  * @since: 2021-09-14
  * @version: 1.0.0
  **/
