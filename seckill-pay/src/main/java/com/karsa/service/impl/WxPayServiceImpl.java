@@ -131,7 +131,6 @@ public class WxPayServiceImpl implements IWxPayService {
             if ("SUCCESS".equals(result_code)) {
                 //表示退款申请接受成功，结果通过退款查询接口查询
                 //修改用户订单状态为退款申请中或已退款。退款异步通知根据需求，可选
-                //
                 return ResultMap.ok("退款申请成功");
             } else {
                 log.info("订单号:{}错误信息:{}", orderNo, err_code_des);
