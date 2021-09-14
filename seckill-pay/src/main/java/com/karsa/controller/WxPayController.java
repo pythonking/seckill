@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 
 /**
  * @program: seckill
- * @description:
+ * @description: 微信支付接口
  * @author: Karsa
  * @since: 2021-09-14
  * @version: 1.0.0
